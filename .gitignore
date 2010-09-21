@@ -1,0 +1,5 @@
+CommitHero.egg-info/
+build/
+dist/
+var/
+.commithero
