@@ -25,15 +25,16 @@ parser.add_option("-u", "--user", metavar="author",
 def main(args=None):
     options, args = parser.parse_args(args)
     assert len(args) == 1, "only expected one repository"
+    wd = path(args[0])
 
     # load data from previous runs, if any
-    cachefile = path(options.cache)
+    cachefile = wd / options.cache
     state = RepositoryState()
     if cachefile.check():
         state = pickle.load(cachefile.open('rb'))
     previous = len(initial.history)
 
-    application.run(path(args[0]), state)
+    application.run(wd, state)
 
     if options.table:
         for user, achievements in state.achievements.iteritems():
