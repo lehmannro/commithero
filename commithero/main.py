@@ -28,12 +28,12 @@ def main(args=None):
 
     # load data from previous runs, if any
     cachefile = path(options.cache)
-    initial = RepositoryState()
+    state = RepositoryState()
     if cachefile.check():
-        initial = pickle.load(cachefile.open('rb'))
+        state = pickle.load(cachefile.open('rb'))
     previous = len(initial.history)
 
-    state = application.run(path(args[0]), state=initial)
+    application.run(path(args[0]), state)
 
     if options.table:
         for user, achievements in state.achievements.iteritems():
