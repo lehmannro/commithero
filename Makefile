@@ -14,3 +14,4 @@ $(VIRTUALENV):
 
 clean:
 	rm -rf "$(VIRTUALENV)" build/ dist/ CommitHero.egg-info/
+	rm -f .commithero
