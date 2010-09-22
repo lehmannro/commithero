@@ -3,6 +3,7 @@ from .state import RepositoryState
 from py.path import local as path
 import pickle
 import optparse
+import itertools
 
 parser = optparse.OptionParser()
 parser.add_option("-c", "--cache", metavar="file",
@@ -11,6 +12,10 @@ parser.add_option("-c", "--cache", metavar="file",
 )
 parser.add_option("-t", "--table",
     help="display achievements by user (default: chronological)",
+    action='store_true',
+)
+parser.add_option("-a", "--all",
+    help="display all achievements (default: those new in this run)",
     action='store_true',
 )
 parser.add_option("-u", "--user", metavar="author",
@@ -37,7 +42,11 @@ def main(args=None):
                 for title, desc, commit in achievements:
                     print " * %s - %s. (r%s)" % (title, desc, commit)
     else:
-        for date, user, (title, desc), commit in state.history:
+        if options.all:
+            history = state.history
+        else:
+            history = itertools.islice(state.history, previous, None)
+        for date, user, (title, desc), commit in history:
             if options.user in (None, user):
                 print "[%s] %s unlocked: %s - %s." % (date, user, title, desc)
     # write back
