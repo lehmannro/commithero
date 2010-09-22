@@ -32,7 +32,7 @@ def main(args=None):
     state = RepositoryState()
     if cachefile.check():
         state = pickle.load(cachefile.open('rb'))
-    previous = len(initial.history)
+    previous = len(state.history)
 
     application.run(wd, state)
 
