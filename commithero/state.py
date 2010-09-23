@@ -77,9 +77,6 @@ class RepositoryState(object):
         :param commit: `anyvc.common.Revision`
 
         """
-        if commit.id in self.visited:
-            return
-
         author = self.clean_author(commit.author)
 
         # notify all listeners
