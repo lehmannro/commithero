@@ -10,16 +10,27 @@ class RepositoryState(object):
     from a previous checkout and now updating the achievements with only recent
     commits.
 
+    All instance variables are primitive types ready for pickling.
+
+    :ivar visited: set of visited revision IDs (explicitly does not store whole
+                   revision objects to allow sane pickling)
+    :ivar emails: cached mapping of emails to author names to account for users
+                  temporarily misconfiguring their username but not their email
+
+    :ivar achievements: keeps track of achievements by author
+    :ivar history: same as :ivar:`achievements` but denormalized to
+                   chronological order
+
+    :ivar listeners: instances of `Achievement` waiting for commit events
+    :ivar synonyms: mapping of aliases to authors, set by calls to this
+                    instance when entering context
+
     """
     def __init__(self):
-        # stores only IDs, not whole revision objects
         self.visited = set()
-        # account for users temporarily misconfiguring their username
         self.emails = {}
-        # keep track of achievements, mapping authors to tuples of
         # (achievement, description, commit)
         self.achievements = defaultdict(list)
-        # same for chronological order, a sequence of tuples of
         # (date, author, (achievement, description), commit)
         self.history = deque()
         # fetch listening achievements
@@ -48,6 +59,7 @@ class RepositoryState(object):
         return author
 
     def __call__(self, aliases):
+        """Pass in aliases and make ready to enter context."""
         assert not self.synonyms, "can only enter context once"
         self.synonyms = aliases
         return self
@@ -57,6 +69,14 @@ class RepositoryState(object):
         self.synonyms = {}
 
     def commit(self, commit):
+        """
+        Process a commit.  It automatically extracts the author and notifies
+        all listening achievements about this new commit (commits which have
+        already been processed will be silently ignored).
+
+        :param commit: `anyvc.common.Revision`
+
+        """
         if commit.id in self.visited:
             return
 
