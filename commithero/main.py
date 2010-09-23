@@ -10,6 +10,10 @@ parser.add_option("-c", "--cache", metavar="FILE",
     help="resume with data collected in FILE",
     default=".commithero",
 )
+parser.add_option("-n", "--nocache",
+    help="do not consult cache",
+    action='store_true',
+)
 parser.add_option("-t", "--table",
     help="display achievements by user (default: chronological)",
     action='store_true',
@@ -31,7 +35,7 @@ def main(args=None):
     # load data from previous runs, if any
     cachefile = wd / options.cache
     state = RepositoryState()
-    if cachefile.check():
+    if cachefile.check() and not options.nocache:
         state = pickle.load(cachefile.open('rb'))
     previous = len(state.history)
 
