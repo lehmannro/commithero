@@ -24,13 +24,12 @@ class RepositoryState(object):
         self.history = deque()
         # fetch listening achievements
         self.listeners = [ach() for ach in Achievement.registry]
-        # we expect applications to set _synonyms, a mapping of aliases to real
-        # author names
+        self.synonyms = {}
 
     def clean_author(self, origin):
         # aliasfile may override determined authors
-        if origin in self._synonyms:
-            return self._synonyms[origin]
+        if origin in self.synonyms:
+            return self.synonyms[origin]
         author, mail = parseaddr(origin)
         # strip comments from author
         lparen = author.rfind(' (')
@@ -44,9 +43,18 @@ class RepositoryState(object):
                 # map new email to author
                 self.emails[mail] = author
         # try aliasfile again for properly stripped names
-        if author in self._synonyms:
-            return self._synonyms[author]
+        if author in self.synonyms:
+            return self.synonyms[author]
         return author
+
+    def __call__(self, aliases):
+        assert not self.synonyms, "can only enter context once"
+        self.synonyms = aliases
+        return self
+    def __enter__(self):
+        assert self.synonyms, "must supply aliases before entering context"
+    def __exit__(self, typ, val, tb):
+        self.synonyms = {}
 
     def commit(self, commit):
         if commit.id in self.visited:

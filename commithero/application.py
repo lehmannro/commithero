@@ -20,9 +20,7 @@ def run(repo, state, synonyms):
         queue.extend(parent for parent in revision.parents
                      if parent.id not in visited)
 
-    print "Collected %s new revisions." % len(revisions)
     # now commit all new revisions in order
-    state._synonyms = synonyms
-    for revision in sorted(revisions, key=operator.attrgetter('time')):
-        state.commit(revision)
-    del state._synonyms
+    with state(synonyms):
+        for revision in sorted(revisions, key=operator.attrgetter('time')):
+            state.commit(revision)
