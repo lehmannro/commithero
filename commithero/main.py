@@ -25,6 +25,7 @@ parser.add_option("-u", "--user", metavar="AUTHOR",
 def main(args=None):
     options, args = parser.parse_args(args)
     assert len(args) == 1, "only expected one repository"
+    assert not (options.all and options.table), "-t and -a are exclusive"
     wd = path(args[0])
 
     # load data from previous runs, if any
