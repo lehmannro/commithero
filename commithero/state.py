@@ -86,6 +86,8 @@ class Repository(object):
             if result:
                 if result is True: # support lazy achievements
                     result = ach.name, ach.__doc__
+                if result in self.achievements[author]:
+                    continue # do not award achievement again
                 self.achievements[author][result] = (commit.time, commit.id)
                 self.history.append((commit.time, author, result, commit.id))
 
