@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name = "CommitHero",
     version = "0.1",
-    packages = ['commithero'],
+    packages = ['commithero', 'commithero.achievements'],
     install_requires = ['anyvc'],
     entry_points = {
         'console_scripts': [
