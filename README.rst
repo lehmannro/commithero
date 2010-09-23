@@ -1,5 +1,5 @@
-``commithero`` analyzes a repository for commits and awards individual authors
-achievements based on their work.
+``commithero`` analyzes a repository for commits and awards achievements based on
+each author's work.
 
 It caches results from previous runs in the repository for performance reasons.
 A `RepositoryState` is pickled to a file called ``.commithero`` (see ``-c`` to
