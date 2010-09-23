@@ -7,6 +7,6 @@ modify its name) and loaded in consecutive passes.  Use ``--nocache`` to skip
 the cache.
 
 If your committers screw up their settings -- and boy, they do! -- you can
-supply a mapping of author names to real identities via ``--pseudonyms``.  It
-is a simple, two-column CSV file with the fields *committer*, and *real
-author*.
+supply a file mapping author names to real identities via ``--pseudonyms``
+(defaults to ``.names``).  It is a simple, two-column CSV file with the fields
+*committer*, and *real author*.
