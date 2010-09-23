@@ -2,7 +2,7 @@
 each author's work.
 
 It caches results from previous runs in the repository for performance reasons.
-A `RepositoryState` is pickled to a file called ``.commithero`` (see ``-c`` to
+A `Repository` is pickled to a file called ``.commithero`` (see ``-c`` to
 modify its name) and loaded in consecutive passes.  Use ``--nocache`` to skip
 the cache.
 
