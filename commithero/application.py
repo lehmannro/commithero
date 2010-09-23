@@ -24,5 +24,3 @@ def run(repo, state):
     # now commit all new revisions in order
     for revision in sorted(revisions, key=operator.attrgetter('time')):
         state.commit(revision)
-
-    return state
