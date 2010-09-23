@@ -1,9 +1,8 @@
 from . import Achievement
 from . import ProgressiveAchievement
 
-class InitialCommit(Achievement):
+class FoundingFather(Achievement):
     "Start the repository"
-    name = "Founder
     def on_commit(self, author, commit):
         if not commit.parents:
             return True
