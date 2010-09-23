@@ -30,8 +30,8 @@ class Repository(object):
     def __init__(self):
         self.visited = set()
         self.emails = {}
-        # (achievement, description, commit)
-        self.achievements = defaultdict(list)
+        # (achievement, description) -> (date, commit)
+        self.achievements = defaultdict(dict)
         # (date, author, (achievement, description), commit)
         self.history = deque()
         # fetch listening achievements
@@ -86,7 +86,7 @@ class Repository(object):
             if result:
                 if result is True: # support lazy achievements
                     result = ach.name, ach.__doc__
-                self.achievements[author].append(result + (commit.id,))
+                self.achievements[author][result] = (commit.time, commit.id)
                 self.history.append((commit.time, author, result, commit.id))
 
     def walk(self, repo):

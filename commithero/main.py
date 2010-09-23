@@ -58,7 +58,7 @@ def main(args=None):
         for user, achievements in repo.achievements.iteritems():
             if options.user in (None, user):
                 print "%s's achievements:" % user
-                for title, desc, commit in achievements:
+                for (title, desc), (date, commit) in achievements.iteritems():
                     print " * %s - %s. (r%s)" % (title, desc, commit)
     else:
         if options.all:
