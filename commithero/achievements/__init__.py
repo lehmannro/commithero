@@ -10,7 +10,8 @@ class Achievement(object):
             cls.registry.add(cls)
             #XXX explicitly mark achievements as abstract?
             cls.registry -= set(bases)
-            cls.name = TITLECASE.sub(r' \1', cls.__name__)
+            if 'name' not in clsdict: # class did not genuinely specify a name
+                cls.name = TITLECASE.sub(r' \1', cls.__name__)
 
     def on_commit(self, author, commit):
         raise NotImplementedError
