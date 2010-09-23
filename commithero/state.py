@@ -52,7 +52,7 @@ class RepositoryState(object):
         self.synonyms = aliases
         return self
     def __enter__(self):
-        assert self.synonyms, "must supply aliases before entering context"
+        pass
     def __exit__(self, typ, val, tb):
         self.synonyms = {}
 
