@@ -46,7 +46,7 @@ def main(args=None):
 
     # load aliases from pseudonym file
     aliases = {}
-    aliasfile = path(wd / options.pseudonyms)
+    aliasfile = wd / options.pseudonyms
     if aliasfile.check():
         with aliasfile.open() as f:
             aliases = dict(csv.reader(f))
