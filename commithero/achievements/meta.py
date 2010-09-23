@@ -1,4 +1,5 @@
-from . import ProgressiveAchiement
+from . import Achievement
+from . import ProgressiveAchievement
 
 class InitialCommit(Achievement):
     "Start the repository"
