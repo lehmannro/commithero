@@ -4,6 +4,7 @@ from py.path import local as path
 import pickle
 import optparse
 import itertools
+import csv
 
 parser = optparse.OptionParser()
 parser.add_option("-c", "--cache", metavar="FILE",
@@ -13,6 +14,10 @@ parser.add_option("-c", "--cache", metavar="FILE",
 parser.add_option("-n", "--nocache",
     help="do not consult cache",
     action='store_true',
+)
+parser.add_option("-p", "--pseudonyms", metavar="FILE",
+    help="read pseudonym mappings from FILE",
+    default=".names",
 )
 parser.add_option("-t", "--table",
     help="display achievements by user (default: chronological)",
@@ -39,7 +44,14 @@ def main(args=None):
         state = pickle.load(cachefile.open('rb'))
     previous = len(state.history)
 
-    application.run(wd, state)
+    # load aliases from pseudonym file
+    aliases = {}
+    aliasfile = path(wd / options.pseudonyms)
+    if aliasfile.check():
+        with aliasfile.open() as f:
+            aliases = dict(csv.reader(f))
+
+    application.run(wd, state, aliases)
 
     if options.table:
         for user, achievements in state.achievements.iteritems():

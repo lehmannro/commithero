@@ -2,7 +2,7 @@ from anyvc import repository
 from collections import deque
 import operator
 
-def run(repo, state):
+def run(repo, state, synonyms):
     """Examine a repository for new commits."""
     visited = state.visited
     repo = repository.open(repo)
@@ -22,5 +22,7 @@ def run(repo, state):
 
     print "Collected %s new revisions." % len(revisions)
     # now commit all new revisions in order
+    state._synonyms = synonyms
     for revision in sorted(revisions, key=operator.attrgetter('time')):
         state.commit(revision)
+    del state._synonyms
