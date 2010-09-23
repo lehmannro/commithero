@@ -16,7 +16,6 @@ class RepositoryState(object):
         self.visited = set()
         # account for users temporarily misconfiguring their username
         self.emails = {}
-        self.authors = set()
         # keep track of achievements, mapping authors to tuples of
         # (achievement, description, commit)
         self.achievements = defaultdict(list)
@@ -25,17 +24,28 @@ class RepositoryState(object):
         self.history = deque()
         # fetch listening achievements
         self.listeners = [ach() for ach in Achievement.registry]
+        # we expect applications to set _synonyms, a mapping of aliases to real
+        # author names
 
     def clean_author(self, origin):
+        # aliasfile may override determined authors
+        if origin in self._synonyms:
+            return self._synonyms[origin]
         author, mail = parseaddr(origin)
         # strip comments from author
         lparen = author.rfind(' (')
         if author.rfind(')') > lparen:
             author = author[:lparen]
         # restore author from mail
-        if author not in self.authors and mail in self.emails:
-            author = self.emails[mail]
-        self.authors.add(author)
+        if author not in self.achievements:
+            if mail in self.emails:
+                author = self.emails[mail]
+            else:
+                # map new email to author
+                self.emails[mail] = author
+        # try aliasfile again for properly stripped names
+        if author in self._synonyms:
+            return self._synonyms[author]
         return author
 
     def commit(self, commit):
