@@ -62,8 +62,8 @@ class Repository(object):
     def commit(self, commit):
         """
         Process a commit.  It automatically extracts the author and notifies
-        all listening achievements about this new commit (commits which have
-        already been processed will be silently ignored).
+        all listening achievements about this new commit (:ivar:`visited` is
+        **ignored**).
 
         :param commit: `anyvc.common.Revision`
 
