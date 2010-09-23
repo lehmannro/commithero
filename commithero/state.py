@@ -50,10 +50,12 @@ class RepositoryState(object):
 
     def commit(self, commit):
         author = self.clean_author(commit.author)
+
+        # notify all listeners
         for ach in self.listeners:
             result = ach.on_commit(author, commit)
             if result:
-                if result is True:
+                if result is True: # support lazy achievements
                     result = ach.name, ach.__doc__
                 self.achievements[author].append(result + (commit.id,))
                 self.history.append((commit.time, author, result, commit.id))
