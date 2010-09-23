@@ -15,8 +15,6 @@ class Repository(object):
 
     :ivar visited: set of visited revision IDs (explicitly does not store whole
                    revision objects to allow sane pickling)
-    :ivar emails: cached mapping of emails to author names to account for users
-                  temporarily misconfiguring their username but not their email
 
     :ivar achievements: keeps track of achievements by author
     :ivar history: same as :ivar:`achievements` but denormalized to
@@ -29,7 +27,6 @@ class Repository(object):
     """
     def __init__(self):
         self.visited = set()
-        self.emails = {}
         # (achievement, description) -> (date, commit)
         self.achievements = defaultdict(dict)
         # (date, author, (achievement, description), commit)
@@ -47,13 +44,6 @@ class Repository(object):
         lparen = author.rfind(' (')
         if author.rfind(')') > lparen:
             author = author[:lparen]
-        # restore author from mail
-        if author not in self.achievements:
-            if mail in self.emails:
-                author = self.emails[mail]
-            else:
-                # map new email to author
-                self.emails[mail] = author
         # try aliasfile again for properly stripped names
         if author in self.synonyms:
             return self.synonyms[author]
