@@ -6,7 +6,7 @@ import optparse
 import itertools
 
 parser = optparse.OptionParser()
-parser.add_option("-c", "--cache", metavar="file",
+parser.add_option("-c", "--cache", metavar="FILE",
     help="resume with data collected in FILE",
     default=".commithero",
 )
@@ -18,7 +18,7 @@ parser.add_option("-a", "--all",
     help="display all achievements (default: those new in this run)",
     action='store_true',
 )
-parser.add_option("-u", "--user", metavar="author",
+parser.add_option("-u", "--user", metavar="AUTHOR",
     help="limit achievements to those unlocked by AUTHOR",
 )
 
