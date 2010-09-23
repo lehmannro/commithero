@@ -1,5 +1,5 @@
-from . import application
-from .state import RepositoryState
+from .state import Repository
+from anyvc import repository
 from py.path import local as path
 import pickle
 import optparse
@@ -39,10 +39,10 @@ def main(args=None):
 
     # load data from previous runs, if any
     cachefile = wd / options.cache
-    state = RepositoryState()
+    repo = Repository()
     if cachefile.check() and not options.nocache:
-        state = pickle.load(cachefile.open('rb'))
-    previous = len(state.history)
+        repo = pickle.load(cachefile.open('rb'))
+    previous = len(repo.history)
 
     # load aliases from pseudonym file
     aliases = {}
@@ -51,21 +51,22 @@ def main(args=None):
         with aliasfile.open() as f:
             aliases = dict(csv.reader(f))
 
-    application.run(wd, state, aliases)
+    with repo(aliases):
+        repo.walk(repository.open(wd))
 
     if options.table:
-        for user, achievements in state.achievements.iteritems():
+        for user, achievements in repo.achievements.iteritems():
             if options.user in (None, user):
                 print "%s's achievements:" % user
                 for title, desc, commit in achievements:
                     print " * %s - %s. (r%s)" % (title, desc, commit)
     else:
         if options.all:
-            history = state.history
+            history = repo.history
         else:
-            history = itertools.islice(state.history, previous, None)
+            history = itertools.islice(repo.history, previous, None)
         for date, user, (title, desc), commit in history:
             if options.user in (None, user):
                 print "[%s] %s unlocked: %s - %s." % (date, user, title, desc)
     # write back
-    cachefile.write(pickle.dumps(state), 'wb')
+    cachefile.write(pickle.dumps(repo), 'wb')

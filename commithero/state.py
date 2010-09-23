@@ -1,9 +1,10 @@
 from .achievements import Achievement
 from email.utils import parseaddr
 from collections import defaultdict, deque
+import operator
 
 
-class RepositoryState(object):
+class Repository(object):
     """Pickle-able metadata collection of a repository.
 
     Allows to lazily update a set of commits, ie. when having run `commithero`
@@ -87,3 +88,27 @@ class RepositoryState(object):
                     result = ach.name, ach.__doc__
                 self.achievements[author].append(result + (commit.id,))
                 self.history.append((commit.time, author, result, commit.id))
+
+    def walk(self, repo):
+        """Examine a repository for new commits.
+
+        :param repo: `anyvc.common.Repository`
+
+        """
+        head = repo.get_default_head()
+        if head.id in self.visited:
+            return # no commits since last run
+
+        # fetch all unvisited revisions
+        queue = deque([head]) # traverse from HEAD
+        revisions = deque() # strictly a subset of `visited`
+        while queue:
+            revision = queue.pop() # goes depth-first
+            revisions.append(revision)
+            self.visited.add(revision.id)
+            queue.extend(parent for parent in revision.parents
+                        if parent.id not in self.visited)
+
+        # now commit all new revisions in order
+        for revision in sorted(revisions, key=operator.attrgetter('time')):
+            self.commit(revision)
