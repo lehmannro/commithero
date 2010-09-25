@@ -35,3 +35,4 @@ class ProgressiveAchievement(Achievement):
 from . import commits
 from . import meta
 from . import punchcard
+from . import python
