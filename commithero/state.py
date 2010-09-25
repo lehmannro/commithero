@@ -66,7 +66,7 @@ class Repository(object):
         all listening achievements about this new commit (:ivar:`visited` is
         **ignored**).
 
-        :param commit: `anyvc.common.Revision`
+        :param commit: `anyvc.common.repository.Revision`
 
         """
         author = self.clean_author(commit.author)
@@ -84,6 +84,7 @@ class Repository(object):
         :param string author: clean name
         :param ach: an `Achievement` subclass
         :param result: tuple of *title* and *description*
+        :param commit: `anyvc.common.repository.Revision`
 
         Achievements are free to return ``True`` instead.  The name will be
         computed from its ``name`` attribute or, failing that, from its class
@@ -108,7 +109,7 @@ class Repository(object):
     def walk(self, repo):
         """Examine a repository for new commits.
 
-        :param repo: `anyvc.common.Repository`
+        :param repo: `anyvc.common.repository.Repository`
 
         """
         head = repo.get_default_head()
