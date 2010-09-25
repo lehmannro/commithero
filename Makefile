@@ -6,7 +6,7 @@ VIRTUALENV = var
 VIRTUAL = . "$(VIRTUALENV)/bin/activate";
 
 run: $(VIRTUALENV)
-	$(VIRTUAL) python setup.py install
+	$(VIRTUAL) python setup.py --quiet install
 	$(VIRTUAL) pip install dulwich
 	$(VIRTUAL) commithero $(O) $(R)
 
