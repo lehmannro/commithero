@@ -74,16 +74,36 @@ class Repository(object):
         # notify all listeners
         for ach in self.listeners:
             result = ach.on_commit(author, commit)
-            if result:
-                if result is True: # support lazy achievements
-                    result = ach.name, ach.__doc__
-                name, desc = result
-                if desc[-1] not in string.punctuation:
-                    result = name, desc + '.'
-                if result in self.achievements[author]:
-                    continue # do not award achievement again
-                self.achievements[author][result] = (commit.time, commit.id)
-                self.history.append((commit.time, author, result, commit.id))
+            self.award(author, ach, result)
+
+    def award(self, author, ach, result):
+        """
+        Award an achievement `ach` based on its computed value `result` from a
+        commit.  If `result` is ``None`` this call is a noop.
+
+        :param string author: clean name
+        :param ach: an `Achievement` subclass
+        :param result: tuple of *title* and *description*
+
+        Achievements are free to return ``True`` instead.  The name will be
+        computed from its ``name`` attribute or, failing that, from its class
+        name (NB. this is *actually* done in `Achievement`).  Its description
+        is automatically fetched from its docstring.
+
+        All descriptions are decorated with a trailing full stop if they do not
+        end with a puncutation sign (as per `string.punctuation`).
+
+        """
+        if result:
+            if result is True: # support lazy achievements
+                result = ach.name, ach.__doc__
+            name, desc = result
+            if desc[-1] not in string.punctuation:
+                result = name, desc + '.'
+            if result in self.achievements[author]:
+                continue # do not award achievement again
+            self.achievements[author][result] = (commit.time, commit.id)
+            self.history.append((commit.time, author, result, commit.id))
 
     def walk(self, repo):
         """Examine a repository for new commits.
