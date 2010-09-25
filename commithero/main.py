@@ -1,6 +1,7 @@
 from .state import Repository
 from anyvc import repository
 from py.path import local as path
+from test.test_support import captured_stdout
 import pickle
 import optparse
 import itertools
@@ -51,8 +52,9 @@ def main(args=None):
         with aliasfile.open() as f:
             aliases = dict(csv.reader(f))
 
-    with repo(aliases):
-        repo.walk(repository.open(wd))
+    with captured_stdout(): # anyvc is a little verbose in places
+        with repo(aliases):
+            repo.walk(repository.open(wd))
 
     if options.table:
         for user, achievements in repo.achievements.iteritems():
