@@ -61,7 +61,7 @@ def main(args=None):
             if options.user in (None, user):
                 print "%s's achievements:" % user
                 for (title, desc), (date, commit) in achievements:
-                    print " * %s - %s. (r%s)" % (title, desc, commit)
+                    print " * %s - %s (r%s)" % (title, desc, commit)
     else:
         if options.all:
             history = repo.history
@@ -69,6 +69,6 @@ def main(args=None):
             history = itertools.islice(repo.history, previous, None)
         for date, user, (title, desc), commit in history:
             if options.user in (None, user):
-                print "[%s] %s unlocked: %s - %s." % (date, user, title, desc)
+                print "[%s] %s unlocked: %s - %s" % (date, user, title, desc)
     # write back
     cachefile.write(pickle.dumps(repo), 'wb')

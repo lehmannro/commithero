@@ -2,6 +2,7 @@ from .achievements import Achievement
 from email.utils import parseaddr
 from collections import defaultdict, deque
 import operator
+import string
 
 
 class Repository(object):
@@ -76,6 +77,9 @@ class Repository(object):
             if result:
                 if result is True: # support lazy achievements
                     result = ach.name, ach.__doc__
+                name, desc = result
+                if desc[-1] not in string.punctuation:
+                    result = name, desc + '.'
                 if result in self.achievements[author]:
                     continue # do not award achievement again
                 self.achievements[author][result] = (commit.time, commit.id)
