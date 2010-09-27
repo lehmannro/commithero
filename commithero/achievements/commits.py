@@ -11,14 +11,13 @@ class Commits(ProgressiveAchievement):
         500: ("Maniac", "Commit at least five hundred times"),
     }
     def check(self, commit):
-        if len(commit.parents) == 1: #XXX honour merge conflicts
-            return True
+        #XXX honour merge conflicts
+        return len(commit.parents) == 1
 
 class Merges(ProgressiveAchievement):
     goals = {
         1: ("Team Mate", "Merge from another source"),
     }
     def check(self, commit):
-        if len(commit.parents) > 1:
-            #XXX this could be a local merge, too
-            return True
+        #XXX this could be a local merge, too
+        return len(commit.parents) > 1

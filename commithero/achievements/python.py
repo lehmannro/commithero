@@ -8,5 +8,4 @@ class LambdaCalculus(Achievement):
             if not fname.lower().endswith('.py'):
                 continue
             lambdas += new.count("lambda") - old.count("lambda")
-        if lambdas > 0:
-            return True
+        return lambdas > 0
