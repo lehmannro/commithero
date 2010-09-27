@@ -6,7 +6,7 @@ import pickle
 import optparse
 import itertools
 
-parser = optparse.OptionParser(usage="[options] repository")
+parser = optparse.OptionParser(usage="[options] [repository]")
 parser.add_option("-c", "--cache", metavar="FILE",
     help="resume with data collected in FILE",
     default=".commithero",
@@ -37,9 +37,8 @@ parser.add_option("-u", "--user", metavar="AUTHOR",
 
 def main(args=None):
     options, args = parser.parse_args(args)
-    assert len(args) == 1, "only expected one repository"
     assert not (options.all and options.table), "-t and -a are exclusive"
-    wd = path(args[0])
+    wd = path(args[0] if args else ".")
 
     # load data from previous runs, if any
     cachefile = wd / options.cache
