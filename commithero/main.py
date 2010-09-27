@@ -7,7 +7,7 @@ import optparse
 import itertools
 import csv
 
-parser = optparse.OptionParser()
+parser = optparse.OptionParser(usage="[options] repository")
 parser.add_option("-c", "--cache", metavar="FILE",
     help="resume with data collected in FILE",
     default=".commithero",
@@ -53,8 +53,10 @@ def main(args=None):
             aliases = dict(csv.reader(f))
 
     with captured_stdout(): # anyvc is a little verbose in places
+        vcs = repository.open(wd)
+        assert vcs, "%s is not a repository" % wd
         with repo(aliases):
-            repo.walk(repository.open(wd))
+            repo.walk(vcs)
 
     if options.table:
         for user, achievements in repo.achievements.iteritems():
