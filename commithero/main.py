@@ -5,7 +5,6 @@ from test.test_support import captured_stdout
 import pickle
 import optparse
 import itertools
-import csv
 
 parser = optparse.OptionParser(usage="[options] repository")
 parser.add_option("-c", "--cache", metavar="FILE",
@@ -50,7 +49,12 @@ def main(args=None):
     aliasfile = wd / options.pseudonyms
     if aliasfile.check():
         with aliasfile.open() as f:
-            aliases = dict(csv.reader(f))
+            for line in f:
+                try:
+                    alias, actual = line.split('=' in line and '=' or None, 1)
+                    aliases[alias.strip()] = actual.strip()
+                except ValueError:
+                    assert not line.strip(), "malformed alias line: %s" % line
 
     with captured_stdout(): # anyvc is a little verbose in places
         vcs = repository.open(wd)

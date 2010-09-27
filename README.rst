@@ -11,8 +11,10 @@ A `commithero.state.Repository` is pickled to a file called ``.commithero``
 
 If your committers screw up their settings -- and boy, they do! -- you can
 supply a file mapping author names to real identities via ``--pseudonyms``
-(defaults to ``.names``).  It is a simple two-column CSV file with the fields
-*committer* and *real author*.
+(defaults to ``.names``).  It is a simple file with the fields *committer* and
+*real author* delimited either by a space or, if necessary, by an equality
+sign.  Committer is checked for with the complete originating address (eg.
+``John Doe <john@doe.com>``), only the email *and* the cleaned name.
 
 By default, only achievements unlocked since the last run are displayed.
 Supplying ``--all`` will show all achievements (but still hit the cache so it
