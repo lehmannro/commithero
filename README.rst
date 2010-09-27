@@ -14,7 +14,8 @@ supply a file mapping author names to real identities via ``--pseudonyms``
 (defaults to ``.names``).  It is a simple file with the fields *committer* and
 *real author* delimited either by a space or, if necessary, by an equality
 sign.  Committer is checked for with the complete originating address (eg.
-``John Doe <john@doe.com>``), only the email *and* the cleaned name.
+``John Doe <john@doe.com>``), only the email, and only the username, in that
+order.
 
 By default, only achievements unlocked since the last run are displayed.
 Supplying ``--all`` will show all achievements (but still hit the cache so it
