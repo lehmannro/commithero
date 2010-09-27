@@ -2,14 +2,17 @@ O ?=
 R ?= .
 VIRTUALENV = var
 
-.PHONY: run clean
+.PHONY: install run test clean
 VIRTUAL = . "$(VIRTUALENV)/bin/activate";
 
-run: $(VIRTUALENV)
-	$(VIRTUAL) python setup.py --quiet install
-	$(VIRTUAL) pip install dulwich
+run: install
 	$(VIRTUAL) commithero $(O) $(R)
 
+test:
+	$(VIRTUAL) python setup.py --quiet test --verbose
+
+install: $(VIRTUALENV)
+	$(VIRTUAL) python setup.py --quiet install
 $(VIRTUALENV):
 	virtualenv --distribute --no-site-packages "$(VIRTUALENV)"
 
