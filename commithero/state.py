@@ -40,17 +40,16 @@ class Repository(object):
         # aliasfile may override determined authors
         if origin in self.synonyms:
             return self.synonyms[origin]
-        author, mail = parseaddr(origin)
-        if mail in self.synonyms:
-            return self.synonyms[mail]
-        # strip comments from author
-        lparen = author.rfind(' (')
-        if author.rfind(')') > lparen:
-            author = author[:lparen]
-        # try aliasfile again for properly stripped names
-        if author in self.synonyms:
-            return self.synonyms[author]
-        return author
+
+        if '<' in origin: # chances are high this is an email
+            author, mail = parseaddr(origin)
+            # try aliasfile again for name parts
+            if mail in self.synonyms:
+                return self.synonyms[mail]
+            if author in self.synonyms:
+                return self.synonyms[author]
+            return author
+        return origin # if all else fails
 
     def __call__(self, aliases):
         """Pass in aliases and make ready to enter context."""
