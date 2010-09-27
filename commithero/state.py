@@ -49,7 +49,7 @@ class Repository(object):
                 return self.synonyms[mail]
             if author in self.synonyms:
                 return self.synonyms[author]
-            return author
+            return author or mail
         return origin # if all else fails
 
     def __call__(self, aliases):
