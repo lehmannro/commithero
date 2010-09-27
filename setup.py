@@ -12,6 +12,7 @@ setup(
     },
     test_suite = 'commithero.tests',
     tests_require = ['dulwich'],
+    zip_safe = True,
     description = "Achievements for Programmers",
     author = "Robert Lehmann",
     author_email = "mail@robertlehmann.de",
