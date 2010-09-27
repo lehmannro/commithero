@@ -18,7 +18,7 @@ sign. [1]_  Committer is checked for with the complete originating address (eg.
 order.
 
 .. [1] This is compatible with the format used by hgchurn__.
-.. __ http://mercurial.selenic.com/wiki/ChurnExtension
+.. __: http://mercurial.selenic.com/wiki/ChurnExtension
 
 By default, only achievements unlocked since the last run are displayed.
 Supplying ``--all`` will show all achievements (but still hit the cache so it
