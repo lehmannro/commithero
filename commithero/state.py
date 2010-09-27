@@ -38,6 +38,7 @@ class Repository(object):
 
     def clean_author(self, origin):
         # aliasfile may override determined authors
+        origin = origin.strip('"')
         if origin in self.synonyms:
             return self.synonyms[origin]
 
