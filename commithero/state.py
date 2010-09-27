@@ -41,6 +41,8 @@ class Repository(object):
         if origin in self.synonyms:
             return self.synonyms[origin]
         author, mail = parseaddr(origin)
+        if mail in self.synonyms:
+            return self.synonyms[mail]
         # strip comments from author
         lparen = author.rfind(' (')
         if author.rfind(')') > lparen:
