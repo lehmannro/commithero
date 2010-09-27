@@ -4,14 +4,12 @@ from . import ProgressiveAchievement
 class FoundingFather(Achievement):
     "Start the repository"
     def on_commit(self, author, commit):
-        if not commit.parents:
-            return True
+        return not commit.parents
 
 class OctoMerge(Achievement):
     "Merge from more than two sources simultaneously"
     def on_commit(self, author, commit):
-        if len(commit.parents) > 2:
-            return True
+        return len(commit.parents) > 2
 
 class BugFixes(ProgressiveAchievement):
     goals = {

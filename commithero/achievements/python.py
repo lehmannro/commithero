@@ -17,5 +17,4 @@ class LambdaCalculus(Achievement):
                 count_new = new.count("lambda")
                 count_old = old.count("lambda")
                 lambdas += count_new - count_old
-        if lambdas > 0:
-            return True
+        return lambdas > 0
