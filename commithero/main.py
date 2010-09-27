@@ -19,6 +19,10 @@ parser.add_option("-p", "--pseudonyms", metavar="FILE",
     help="read pseudonym mappings from FILE",
     default=".names",
 )
+parser.add_option("-m", "--mercurial",
+    help="read pseudonym mappings from .hgchurn",
+    action='store_const', dest='pseudonyms', const=".hgchurn",
+)
 parser.add_option("-t", "--table",
     help="display achievements by user (default: chronological)",
     action='store_true',
