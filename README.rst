@@ -36,6 +36,14 @@ The shipped ``Makefile`` offers the following convenience targets:
      - Analyze repository ``$R``, defaulting to the checkout directory, with
        options ``$O``.  (You might need to install your VCS backend into the
        virtualenv first.)
+   * - install-git
+     - Install Git backend.
+   * - install-hg
+     - Install Mercurial backend.
+   * - install-bzr
+     - Install Bazaar backend.
+   * - install-svn
+     - Install Subversion backend.
    * - test
      - Run ``commithero``\ 's tests.
    * - clean
