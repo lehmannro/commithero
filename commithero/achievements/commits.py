@@ -19,5 +19,5 @@ class Merges(ProgressiveAchievement):
         1: ("Team Player", "Merge from another source"),
     }
     def check(self, commit):
-        #XXX this could be a local merge, too
-        return len(commit.parents) > 1
+        return len(commit.parents) > 1 \
+           and any(p.author != commit.author for p in commit.parents)
