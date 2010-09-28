@@ -85,3 +85,15 @@ its name is generated from its class name (eg. a class ``WellDone`` becomes
 * If you need to generate several achievements from a single class you can
   return a tuple of *title* and *description*.
 * See `ProgressiveAchievement` for achievements which have multiple levels.
+
+
+See Also
+========
+
+* git-achievements_ lets users acquire achievements while using Git.  It
+  enables achievements based solely on local actions such as supplying
+  ``--help`` to ``git`` which Commit Hero can never do.  Commit Hero is
+  targeted to be run post-factum on already-written version histories and
+  supports a wide range of version control systems.
+
+.. _git-achievements: http://github.com/icefox/git-achievements
