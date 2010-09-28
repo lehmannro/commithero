@@ -16,6 +16,15 @@ install: $(VIRTUALENV)
 $(VIRTUALENV):
 	virtualenv --distribute --no-site-packages "$(VIRTUALENV)"
 
+install-git: install
+	$(VIRTUAL) pip install dulwich
+install-hg: install
+	$(VIRTUAL) pip install mercurial
+install-bzr: install
+	$(VIRTUAL) pip install bzr
+install-svn: install
+	$(VIRTUAL) pip install subvertpy
+
 clean:
 	rm -rf "$(VIRTUALENV)" build/ dist/ CommitHero.egg-info/
 	rm -f .commithero
