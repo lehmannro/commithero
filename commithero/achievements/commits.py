@@ -16,7 +16,7 @@ class Commits(ProgressiveAchievement):
 
 class Merges(ProgressiveAchievement):
     goals = {
-        1: ("Team Mate", "Merge from another source"),
+        1: ("Team Player", "Merge from another source"),
     }
     def check(self, commit):
         #XXX this could be a local merge, too
