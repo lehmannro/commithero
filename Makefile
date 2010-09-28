@@ -8,6 +8,16 @@ VIRTUAL = . "$(VIRTUALENV)/bin/activate";
 run: install
 	$(VIRTUAL) commithero $(O) $(R)
 
+help:
+	@echo " install      Install to virtualenv \$$VIRTUALENV (default: ./var)"
+	@echo " run          Run on repository \$$R with options \$$O."
+	@echo " install-git  Install Git backend."
+	@echo " install-hg   Install Mercurial backend."
+	@echo " install-bzr  Install Bazaar backend."
+	@echo " install-svn  Install Subversion backend."
+	@echo " test         Run test suite."
+	@echo " clean        Remove build files and cache."
+
 test:
 	$(VIRTUAL) python setup.py --quiet test --verbose
 

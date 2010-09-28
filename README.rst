@@ -23,31 +23,11 @@ Run it like so::
 
    commithero --help
 
-The shipped ``Makefile`` offers the following convenience targets:
+The shipped ``Makefile`` offers to install Commit Hero into a virtual
+environment.  See ``make help`` for details.  If you, for example, wish to run
+it on your Mercurial repository ``~/myrepo``, use::
 
-.. list-table::
-
-   * - target
-     - description
-   * - install
-     - Installs Commit Hero to virtual environment ``$VIRTUALENV``, defaulting
-       to ``var/``.
-   * - run
-     - Analyze repository ``$R``, defaulting to the checkout directory, with
-       options ``$O``.  (You might need to install your VCS backend into the
-       virtualenv first.)
-   * - install-git
-     - Install Git backend.
-   * - install-hg
-     - Install Mercurial backend.
-   * - install-bzr
-     - Install Bazaar backend.
-   * - install-svn
-     - Install Subversion backend.
-   * - test
-     - Run ``commithero``\ 's tests.
-   * - clean
-     - Remove build files and cache.
+   make install-hg run R=~/myrepo
 
 
 Synopsis
