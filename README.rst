@@ -4,9 +4,9 @@ each author's work.
 Synopsis
 ========
 
-It caches results from previous runs in the repository for performance reasons.
-A `commithero.state.Repository` is pickled to a file called ``.commithero``
-(see ``--cache`` to modify its name) and loaded in consecutive passes.  Use
+Results from previous runs are cached for performance reasons.  Technically, a
+`commithero.state.Repository` is pickled to a file called ``.commithero`` (see
+``--cache`` to modify its name) and loaded in consecutive passes.  Use
 ``--nocache`` to skip the cache.
 
 If your committers screw up their settings -- and boy, they do! -- you can
