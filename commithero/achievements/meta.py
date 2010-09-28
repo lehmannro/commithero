@@ -19,5 +19,4 @@ class BugFixes(ProgressiveAchievement):
         30: ("Exterminator", "Close thirty issues"),
     }
     def check(self, commit):
-        if ". closes #" in commit.message.lower():
-            return True
+        return ". closes #" in commit.message.lower()
