@@ -1,5 +1,46 @@
-``commithero`` analyzes a repository for commits and awards achievements based on
-each author's work.
+**Commit Hero** analyzes a repository for commits and awards achievements based
+on each author's work.  It works on a number of version control systems thanks
+to anyvc_.
+
+.. _anyvc: http://bitbucket.org/RonnyPfannschmidt/anyvc/
+
+Installation
+============
+
+Install Commit Hero through setuptools__::
+
+   python setup.py install
+
+.. __: http://packages.python.org/distribute/
+
+It depends on anyvc_ (which is automatically installed by Setuptools) and the
+backend for the repository in question, see `anyvc's Dependencies`__ for
+details.
+
+.. __: http://pypi.python.org/pypi/anyvc/#dependencies
+
+Run it like so::
+
+   commithero --help
+
+The shipped ``Makefile`` offers the following convenience targets:
+
+.. list-table::
+
+   * - target
+     - description
+   * - install
+     - Installs Commit Hero to virtual environment ``$VIRTUALENV``, defaulting
+       to ``var/``.
+   * - run
+     - Analyze repository ``$R``, defaulting to the checkout directory, with
+       options ``$O``.  (You might need to install your VCS backend into the
+       virtualenv first.)
+   * - test
+     - Run ``commithero``\ 's tests.
+   * - clean
+     - Remove build files and cache.
+
 
 Synopsis
 ========
@@ -24,6 +65,7 @@ By default, only achievements unlocked since the last run are displayed.
 Supplying ``--all`` will show all achievements (but still hit the cache so it
 is lightning fast);  ``--table`` shows all achievements ordered by author
 instead of date unlocked.
+
 
 Hacking
 =======
