@@ -2,7 +2,6 @@ from .achievements import Achievement
 from email.utils import parseaddr
 from collections import defaultdict, deque
 import operator
-import string
 
 
 class Repository(object):
@@ -93,18 +92,15 @@ class Repository(object):
         name (NB. this is *actually* done in `Achievement`).  Its description
         is automatically fetched from its docstring.
 
-        All descriptions are decorated with a trailing full stop if they do not
-        end with a puncutation sign (as per `string.punctuation`).
-
         """
         if result:
-            if result is True: # support lazy achievements
+            # support lazy achievements
+            if result is True:
                 result = ach.name, ach.__doc__
-            name, desc = result
-            if desc[-1] not in string.punctuation:
-                result = name, desc + '.'
+            # do not award achievement again
             if result in self.achievements[author]:
-                return # do not award achievement again
+                return
+            # keep track of achievements
             self.achievements[author][result] = (commit.time, commit.id)
             self.history.append((commit.time, author, result, commit.id))
 
