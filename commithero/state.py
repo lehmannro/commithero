@@ -73,18 +73,6 @@ class Repository(object):
         """
         author = self.clean_author(commit.author)
 
-        commit.changes = changes = []
-        for fname in commit.get_changed_files():
-            try:
-                new = commit.file_content(fname)
-            except IOError: # removed file
-                new = ""
-            try:
-                old = commit.parents[0].file_content(fname)
-            except (IOError, IndexError): # added file
-                old = ""
-            changes.append((fname, old, new))
-
         # notify all listeners
         for ach in self.listeners:
             result = ach.on_commit(author, commit)
