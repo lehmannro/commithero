@@ -12,7 +12,7 @@ class Commits(ProgressiveAchievement):
     }
     def check(self, commit):
         #XXX honour merge conflicts
-        return len(commit.parents) == 1
+        return len(commit.parents) <= 1
 
 class Merges(ProgressiveAchievement):
     goals = {
