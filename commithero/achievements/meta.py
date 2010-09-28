@@ -9,7 +9,10 @@ class FoundingFather(Achievement):
 class OctoMerge(Achievement):
     "Merge from more than two sources simultaneously"
     def on_commit(self, author, commit):
-        return len(commit.parents) > 2
+        return len(commit.parents) > 2 \
+            or len(commit.parents) == 2 \
+           and any(len(c.parents) > 1 for c in commit.parents
+                   if c.author == commit.author)
 
 class BugFixes(ProgressiveAchievement):
     goals = {
