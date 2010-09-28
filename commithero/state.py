@@ -112,11 +112,11 @@ class Repository(object):
         if result:
             if result is True: # support lazy achievements
                 result = ach.name, ach.__doc__
-            if result in self.achievements[author]:
-                return # do not award achievement again
             name, desc = result
             if desc[-1] not in string.punctuation:
                 result = name, desc + '.'
+            if result in self.achievements[author]:
+                return # do not award achievement again
             self.achievements[author][result] = (commit.time, commit.id)
             self.history.append((commit.time, author, result, commit.id))
 
