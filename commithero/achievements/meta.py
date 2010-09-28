@@ -23,3 +23,8 @@ class BugFixes(ProgressiveAchievement):
     }
     def check(self, commit):
         return ". closes #" in commit.message.lower()
+
+class BlahBlahBlah(Achievement):
+    "Tell the newest gossip in commit messages"
+    def on_commit(self, author, commit):
+        return '\n' in commit.message
