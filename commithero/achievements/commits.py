@@ -30,7 +30,6 @@ class Ooopsie(Achievement):
             return
         parent = commit.parents[0].parents[0]
         for f in commit.get_changed_files():
-            print "change:", f
             try:
                 old = parent.file_content(f)
             except IOError:
