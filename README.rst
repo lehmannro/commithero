@@ -46,7 +46,8 @@ sign. [1]_  Committer is checked for with the complete originating address (eg.
 ``John Doe <john@doe.com>``), only the email, and only the username, in that
 order.
 
-.. [1] This is compatible with the format used by hgchurn__.
+.. [1] This is compatible with the format used by hgchurn__.  Use your
+       repository's ``.hgchurn`` file with the ``--mercurial`` option.
 .. __: http://mercurial.selenic.com/wiki/ChurnExtension
 
 By default, only achievements unlocked since the last run are displayed.
