@@ -39,6 +39,19 @@ class TestRepository(TestCase):
         self.assertEquals(restored.achievements, repo.achievements)
         self.assertEquals(restored.history, repo.history)
 
+    def test_clean_author(self):
+        clean = Repository().clean_author
+        self.assertEquals(clean("John"), "John")
+        self.assertEquals(clean("John Doe"), "John Doe")
+        self.assertEquals(clean("John Doe <jdoe@john.doe>"), "John Doe")
+
+    def test_aliases(self):
+        repo = Repository()
+        clean = repo.clean_author
+        with repo({'John': 'Jack'}):
+            self.assertEquals(clean("John"), "Jack")
+        self.assertEquals(clean("John"), "John")
+
     def test_history(self):
         repo = Repository()
         repo.commit(MockRevision())
