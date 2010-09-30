@@ -66,7 +66,6 @@ class TestRepository(TestCase):
     def test_history(self):
         repo = Repository()
         repo.commit(MockRevision())
-        self.assert_(repo.achievements)
-        self.assert_(repo.history)
+        self.failIf(repo.visited) # only populated by Repository.walk
         self.assert_("John Doe" in repo.achievements)
         self.assert_("John Doe" in repo.history[0])
