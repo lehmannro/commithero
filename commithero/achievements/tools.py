@@ -32,3 +32,11 @@ class MakefileKungFu(Achievement):
                 new = ""
             if new.count("\n") > 29:
                 return True
+
+class DirtyTempFile(Achievement):
+    name = "You dirty little..."
+    "Including your tempfiles is not gonna help."
+    def on_commit(self, author, commit):
+        for fname in commit.get_changed_files():
+            if fname.endswith('~') or fname.endswith('.swp'):
+               return True
