@@ -48,8 +48,15 @@ class TestRepository(TestCase):
     def test_aliases(self):
         repo = Repository()
         clean = repo.clean_author
-        with repo({'John': 'Jack'}):
-            self.assertEquals(clean("John"), "Jack")
+        aliases = {
+            "John <mail@john.doe>": "john",
+            "mail@john.doe": "Mr Doe",
+            "John": "Jack",
+        }
+        with repo(aliases):
+            self.assertEquals(clean("John <mail@john.doe>"), "john")
+            self.assertEquals(clean("Jack <mail@john.doe>"), "Mr Doe")
+            self.assertEquals(clean("John <no@e.mail>"), "Jack")
         self.assertEquals(clean("John"), "John")
 
     def test_history(self):
