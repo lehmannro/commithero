@@ -12,6 +12,7 @@ class TestAwards(TestCase):
                     in repo.achievements["Robert Lehmann"]]
 
     def test_commits(self):
+        "achievements.commits.Commits"
         one_commit = achievements.commits.Commits.goals[1][0]
         self.assert_(one_commit in self.ach)
 
@@ -19,6 +20,7 @@ class TestAwards(TestCase):
         self.assert_(five_commits in self.ach)
 
     def test_initial_commit(self):
+        "achievements.meta.InitialCommit"
         first_commit = achievements.meta.FoundingFather.name
         self.assert_(first_commit in self.ach)
 
