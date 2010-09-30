@@ -38,3 +38,11 @@ class TestRepository(TestCase):
         restored = pickle.loads(pickle.dumps(repo))
         self.assertEquals(restored.achievements, repo.achievements)
         self.assertEquals(restored.history, repo.history)
+
+    def test_history(self):
+        repo = Repository()
+        repo.commit(MockRevision())
+        self.assert_(repo.achievements)
+        self.assert_(repo.history)
+        self.assert_("John Doe" in repo.achievements)
+        self.assert_("John Doe" in repo.history[0])
