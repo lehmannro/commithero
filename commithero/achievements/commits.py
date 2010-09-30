@@ -33,10 +33,10 @@ class Ooopsie(Achievement):
             try:
                 old = parent.file_content(f)
             except IOError:
-                old = ""
+                old = None
             try:
                 new = commit.file_content(f)
             except IOError:
-                new = ""
+                new = None
             if old == new:
                 return True
