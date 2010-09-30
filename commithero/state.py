@@ -46,6 +46,9 @@ class Repository(object):
             # try aliasfile again for name parts
             if mail in self.synonyms:
                 return self.synonyms[mail]
+            lparen = author.rfind(' (')
+            if author.rfind(')') > lparen:
+                author = author[:lparen]
             if author in self.synonyms:
                 return self.synonyms[author]
             return author or mail

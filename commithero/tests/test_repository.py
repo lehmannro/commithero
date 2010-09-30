@@ -45,6 +45,10 @@ class TestRepository(TestCase):
         self.assertEquals(clean("John Doe"), "John Doe")
         self.assertEquals(clean("John Doe <jdoe@john.doe>"), "John Doe")
 
+    def test_clean_weird(self):
+        clean = Repository().clean_author
+        self.assertEquals(clean("John <john@doe.(none)>"), "John")
+
     def test_aliases(self):
         repo = Repository()
         clean = repo.clean_author
