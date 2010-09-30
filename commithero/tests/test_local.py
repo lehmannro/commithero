@@ -23,7 +23,3 @@ class TestAwards(TestCase):
         "achievements.meta.InitialCommit"
         first_commit = achievements.meta.FoundingFather.name
         self.assert_(first_commit in self.ach)
-
-if __name__ == '__main__':
-    import unittest
-    unittest.main()
