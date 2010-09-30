@@ -16,4 +16,8 @@ setup(
     description = "Achievements for Programmers",
     author = "Robert Lehmann",
     author_email = "mail@robertlehmann.de",
+    classifiers = [
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Version Control',
+    ],
 )
