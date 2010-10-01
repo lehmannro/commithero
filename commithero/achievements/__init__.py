@@ -36,4 +36,5 @@ from . import commits
 from . import meta
 from . import punchcard
 from . import python
+from . import asm
 from . import tools
