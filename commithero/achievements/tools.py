@@ -35,9 +35,8 @@ class MakefileKungFu(Achievement):
                 # Makefiles could well match.
 
 class DirtyTempFile(Achievement):
+    "Including your temporary files is not gonna help."
     name = "You dirty little..."
-    "Including your tempfiles is not gonna help."
     def on_commit(self, author, commit):
-        for fname in commit.get_changed_files():
-            if fname.endswith('~') or fname.endswith('.swp'):
-               return True
+        return any(path.endswith('~') or path.endswith('.swp')
+           for path in commit.get_changed_files())
