@@ -1,11 +1,13 @@
 from . import Achievement
 
 class AutomakeHell(Achievement):
+    "We can't abandon m68k just yet!"
     def on_commit(self, author, commit):
         return any(path.endswith('Makefile.am')
            for path in commit.get_changed_files())
 
 class AutoconfHell(Achievement):
+    "Do you compile correctly on Cray systems?"
     def on_commit(self, author, commit):
         return any(path.endswith('configure.in')
            for path in commit.get_changed_files())
