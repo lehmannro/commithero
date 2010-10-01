@@ -24,14 +24,15 @@ class MakefileKungFu(Achievement):
     name = "Makefile Kung-Fu"
     def on_commit(self, author, commit):
         for fname in commit.get_changed_files():
-            if not fname in ['Makefile', 'makefile', 'GNUmakefile']:
+            if not any(fname.endswith(makefile) for makefile in
+                ['Makefile', 'makefile', 'GNUmakefile']):
                continue
-            try:
-                new = commit.file_content(fname)
-            except IOError: # removed file
-                new = ""
-            if new.count("\n") > 29:
-                return True
+            if commit.exists(fname):
+                content = commit.file_content(fname)
+                if content.count('\n') >= 30:
+                    return True
+                # Do not return if condition did not match because other
+                # Makefiles could well match.
 
 class DirtyTempFile(Achievement):
     name = "You dirty little..."
