@@ -1,5 +1,6 @@
 from . import Achievement
 from datetime import timedelta
+from collections import deque
 
 class Insomniac(Achievement):
     "More coding, less sleeping."
@@ -16,3 +17,16 @@ class FastestGunInTheWest(Achievement):
     def on_commit(self, author, commit):
         return any(abs(commit.time - parent.time) < timedelta(seconds=1)
            for parent in commit.parents)
+
+class FifteenMinutesOfFame(Achievement):
+    "A dozen commits while waiting for your tea."
+    def on_commit(self, author, commit):
+        recent = 1
+        queue = deque(commit.parents)
+        while queue:
+            current = queue.pop()
+            if commit.time - current.time < timedelta(minutes=15):
+                queue.extend(current.parents)
+                if current.author == commit.author:
+                    recent += 1
+        return recent >= 12
