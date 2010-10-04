@@ -4,6 +4,26 @@ import re
 TITLECASE = re.compile(r'(?<=.)([A-Z])')
 
 class Achievement:
+    """An achievement and the rules for its award.
+
+    It may hold state related to the repository it has been applied to (even
+    though it does not know which repository that is, check
+    `ProgressiveAchievement` for one such implementation).  Thus it needs to
+    remain pickleable.
+
+    :cvar string name: title
+    :cvar __doc__: description
+
+    Once an achievement has been awarded its representation is permanently
+    logged to the tracked repository.  See `commithero.state.Repository.award`
+    for details.
+
+    :cvar registry: all achievements
+
+    All leaf subclasses of `Achievement` are automagically added to `registry`
+    for easy collection.
+
+    """
     registry = set()
     class __metaclass__(type):
         def __init__(cls, name, bases, clsdict):
