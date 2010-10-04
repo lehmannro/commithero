@@ -73,6 +73,6 @@ from . import commits
 from . import meta
 from . import punchcard
 from . import python
-from . import c
+from . import gcc
 from . import asm
 from . import tools
