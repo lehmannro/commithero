@@ -23,5 +23,6 @@ class Win32Hell(CAchievement):
                ) > 0
 
 class Pragmatic(CAchievement):
+    "Dear compiler, why are you always so mean to me?"
     def on_change(self, old, new):
-        return new.count('\n#pragma ') - old.count('\n#pragma ') > 0
+        return new.count("\n#pragma ") - old.count("\n#pragma ") > 0
