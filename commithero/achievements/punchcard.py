@@ -30,3 +30,8 @@ class FifteenMinutesOfFame(Achievement):
                 if current.author == commit.author:
                     recent += 1
         return recent >= 12
+
+class ShomerShabbos(Achievement):
+    "Check-in on a Saturday."
+    def on_commit(self, author, commit):
+        return commit.time.isoweekday() == 7
