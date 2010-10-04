@@ -74,7 +74,7 @@ its name is generated from its class name (eg. a class ``WellDone`` becomes
 * You are free to set ``name`` on your achievement class if you are unhappy
   with restrictions imposed by Python.
 * If you need to generate several achievements from a single class you can
-  return a tuple of *title* and *description*.
+  return a tuple of *title* and *description* on every single invocation.
 * See `ProgressiveAchievement` for achievements which have multiple levels.
 
 
