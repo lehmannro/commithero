@@ -55,7 +55,7 @@ class ProgressiveAchievement(Achievement):
             if count in self.goals:
                 return self.goals[count]
 
-    def check(self, author, commit):
+    def check(self, commit):
         raise NotImplementedError
 
 from . import commits
