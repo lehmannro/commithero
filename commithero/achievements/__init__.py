@@ -56,6 +56,12 @@ class ProgressiveAchievement(Achievement):
                 return self.goals[count]
 
     def check(self, commit):
+        """Detect if a commit counts as progress towards a goal.
+
+        :param commit: `anyvc.common.repository.Revision`
+        :rtype: boolean
+
+        """
         raise NotImplementedError
 
 from . import commits
