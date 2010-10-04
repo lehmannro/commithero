@@ -14,9 +14,32 @@ class Achievement(object):
                 cls.name = TITLECASE.sub(r' \1', cls.__name__)
 
     def on_commit(self, author, commit):
+        """Assess a commit.
+
+        :param string author: clean name
+        :param commit: `anyvc.common.repository.Revision`
+        :return: see `commithero.state.Repository.award`
+
+        """
         pass
 
     def on_change(self, old, new):
+        """Assess a specific change to a file.
+
+        :param string old: contents in base parent commit
+        :param string new: contents in current commit
+        :return: see `commithero.state.Repository.award`
+
+        This method is merely a convenience method to save iteration over all
+        of the commit's files (`get_changed_files`);  it *can* be implemented
+        solely by the means of `on_commit`.
+
+        There are two ways to limit its invokation based on the handled file:
+
+            * Set ``path`` to a list of file names.
+            * Set ``ext`` to a list of file suffixes.
+
+        """
         pass
 
 
