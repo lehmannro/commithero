@@ -63,7 +63,9 @@ You can define additional achievements in a very simple manner:  Define a class
 derived from `commithero.achievements.Achievement` and implement its
 ``on_commit`` method which takes an *author* (a string) and a *commit* (a
 `anyvc.common.repository.Revision`).  Whenever you return `True` from such a
-method the system considers this particular achievement unlocked.
+method the system considers this particular achievement unlocked.  Implementing
+``on_change``, which takes two strings *old* and *new* with file contents,
+allows you to implement per-file achievements.
 
 The achievement description is automatically retrieved from its docstring and
 its name is generated from its class name (eg. a class ``WellDone`` becomes
