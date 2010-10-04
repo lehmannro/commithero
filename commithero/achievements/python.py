@@ -47,4 +47,13 @@ class RocketScience(PyAchievement):
     "Using 'while True' obviously means you know *exactly* what you're doing"
     added = "while True:"
 
+def lineavg(text):
+    n = text.count("\n")
+    chrs = sum(len(line) for line in new.split("\n"))
+    return chrs/n
 
+class LooooongCode(PyAchievement):
+    "Using lines longer than 80 characters shows off how large your screen really is"
+    # ironically the line above is longer than 80
+    def on_change(self, old, new):
+        return lineavg(old) < 80 and lineavg(new) > 80
