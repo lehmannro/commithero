@@ -26,3 +26,8 @@ class Pragmatic(CAchievement):
     "Dear compiler, why are you always so mean to me?"
     def on_change(self, old, new):
         return new.count("\n#pragma ") - old.count("\n#pragma ") > 0
+
+class MrImportant(CAchievement):
+    def on_change(self, old, new):
+        line = "\n#pragma GCC system_header"
+        return new.count(line) - old.count(line) > 0

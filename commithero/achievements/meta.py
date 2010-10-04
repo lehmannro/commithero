@@ -1,5 +1,6 @@
 from . import Achievement
 from . import ProgressiveAchievement
+import os.path
 
 class FoundingFather(Achievement):
     "Start the repository."
@@ -28,3 +29,12 @@ class BlahBlahBlah(Achievement):
     "Tell the newest gossip in commit messages."
     def on_commit(self, author, commit):
         return '\n' in commit.message
+
+class Polyglot(Achievement):
+    "Master at least three languages."
+    def on_commit(self, author, commit):
+        exts = set(os.path.splitext(path)[1][1:].lower()
+                   for path in commit.get_changed_files()
+               ) - set(['in', 'txt'])
+        #XXX binary files
+        return len(exts) >= 3
