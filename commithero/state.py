@@ -2,6 +2,7 @@ from .achievements import Achievement
 from email.utils import parseaddr
 from collections import defaultdict, deque
 import operator
+import os.path
 
 
 class Repository(object):
@@ -82,11 +83,17 @@ class Repository(object):
         if commit.parents:
             parent = commit.parents[0]
             for path in commit.get_changed_files():
+                head, tail = os.path.split(path)
+                base, ext = os.path.splitext(tail)
                 new = commit.file_content(path) \
                       if commit.exists(path) else None
                 old = parent.file_content(path) \
                       if parent.exists(path) else None
                 for ach in self.listeners:
+                    if ach.ext and ext.lower() not in ach.ext:
+                        continue
+                    if ach.path and tail.lower() not in ach.path:
+                        continue
                     self.award(author, ach, ach.on_change(old, new), commit)
 
     def award(self, author, ach, result, commit):

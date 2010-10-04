@@ -12,6 +12,11 @@ class Achievement:
             cls.registry -= set(bases)
             if 'name' not in clsdict: # class did not genuinely specify a name
                 cls.name = TITLECASE.sub(r' \1', cls.__name__)
+            cls.ext = [s.lower() for s in clsdict.get('ext', [])]
+            cls.path = [s.lower() for s in clsdict.get('path', [])]
+            for base in bases:
+                cls.ext.extend(base.ext)
+                cls.path.extend(base.path)
 
     def on_commit(self, author, commit):
         """Assess a commit.
