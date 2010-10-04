@@ -34,8 +34,8 @@ class DirtyTempFile(Achievement):
     name = "You dirty little..."
     ext = ['swp']
     def on_change(self, old, new):
-        # file has been added
-        return old is None
+        # file has not been removed
+        return new is not None
     def on_commit(self, author, commit):
         return any(path.endswith('~') and commit.exists(path)
            for path in commit.get_changed_files())
