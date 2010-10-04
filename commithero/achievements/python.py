@@ -5,6 +5,11 @@ class PyAchievement(Achievement):
     "Achievement granted for working on Python files."
     ext = ['py']
 
+class Pythonista(PyAchievement):
+    "You need not necessarily be Dutch."
+    def on_change(self, old, new):
+        return True
+
 class LambdaCalculus(PyAchievement, AdditionAchievement):
     "Because inline function are, like, totally more readable!"
     added = "lambda"
