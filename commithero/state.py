@@ -77,8 +77,17 @@ class Repository(object):
 
         # notify all listeners
         for ach in self.listeners:
-            result = ach.on_commit(author, commit)
-            self.award(author, ach, result, commit)
+            self.award(author, ach, ach.on_commit(author, commit), commit)
+
+        if commit.parents:
+            parent = commit.parents[0]
+            for path in commit.get_changed_files():
+                new = commit.file_content(path) \
+                      if commit.exists(path) else None
+                old = parent.file_content(path) \
+                      if parent.exists(path) else None
+                for ach in self.listeners:
+                    self.award(author, ach, ach.on_change(old, new), commit)
 
     def award(self, author, ach, result, commit):
         """

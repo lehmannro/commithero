@@ -14,7 +14,10 @@ class Achievement(object):
                 cls.name = TITLECASE.sub(r' \1', cls.__name__)
 
     def on_commit(self, author, commit):
-        raise NotImplementedError
+        pass
+
+    def on_change(self, old, new):
+        pass
 
 
 class ProgressiveAchievement(Achievement):
