@@ -1,5 +1,6 @@
 from . import Achievement
 from . import AdditionAchievement
+import itertools
 
 class PyAchievement(Achievement):
     "Achievement granted for working on Python files."
@@ -21,3 +22,15 @@ class Fedex(Achievement):
     def on_change(self, old, new):
         # file has been added
         return old is None
+
+def party_decorations(text):
+    return sum(1 for is_deco, lines
+        #XXX ignore empty lines between decorator and function
+        in itertools.groupby(text.splitlines(),
+                             lambda line: line.startswith("@"))
+        if is_deco and len(lines) >= 3) if text else 0
+
+class PartyDecorations(PyAchievement):
+    "Use three or more decorators on one function."
+    def on_change(self, old, new):
+        return party_decorations(new) > party_decorations(old)
