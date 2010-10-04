@@ -94,6 +94,18 @@ class ProgressiveAchievement(Achievement):
         """
         raise NotImplementedError
 
+class AdditionAchievement(Achievement):
+    """Achievement which counts occurrences of text snippets in changed files.
+
+    :cvar string added: text which should have been added
+
+    """
+    def on_change(self, old, new):
+        #XXX moved chunks across files
+        new_count = new.count(self.added) if new else 0
+        old_count = old.count(self.added) if old else 0
+        return new_count - old_count > 0
+
 from . import commits
 from . import meta
 from . import punchcard

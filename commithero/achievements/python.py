@@ -1,11 +1,10 @@
 from . import Achievement
+from . import AdditionAchievement
 
-class LambdaCalculus(Achievement):
+class LambdaCalculus(AdditionAchievement):
     "Because inline function are, like, totally more readable!"
     ext = ['py']
-    def on_change(self, old, new):
-        #XXX moved chunks across files
-        return new.count('lambda') - old.count('lambda') > 0
+    added = "lambda"
 
 class Fedex(Achievement):
     "Introduce a new Python package."
