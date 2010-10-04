@@ -3,7 +3,7 @@ import re
 
 TITLECASE = re.compile(r'(?<=.)([A-Z])')
 
-class Achievement(object):
+class Achievement:
     registry = set()
     class __metaclass__(type):
         def __init__(cls, name, bases, clsdict):
