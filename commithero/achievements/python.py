@@ -12,4 +12,5 @@ class Fedex(Achievement):
     name = "FedEx"
     path = ['__init__.py']
     def on_change(self, old, new):
+        # file has been added
         return old is None

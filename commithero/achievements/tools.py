@@ -4,12 +4,14 @@ class AutomakeHell(Achievement):
     "We can't abandon m68k just yet!"
     path = ['Makefile.am']
     def on_change(self, old, new):
+        # file has not been removed
         return new is not None
 
 class AutoconfHell(Achievement):
     "Do you compile correctly on Cray systems?"
     path = ['configure.in']
     def on_change(self, old, new):
+        # file has not been removed
         return new is not None
 
 class HandwrittenConfigure(Achievement):
@@ -17,6 +19,7 @@ class HandwrittenConfigure(Achievement):
     name = "I Can Do Better Than GNU"
     path = ['configure']
     def on_change(self, old, new):
+        # file has been edited and does not contain GNU Autoconf headers
         return new and 'GNU Autoconf' not in new and 'autoconf' not in new
 
 class MakefileKungFu(Achievement):
@@ -31,6 +34,7 @@ class DirtyTempFile(Achievement):
     name = "You dirty little..."
     ext = ['swp']
     def on_change(self, old, new):
+        # file has been added
         return old is None
     def on_commit(self, author, commit):
         return any(path.endswith('~') and commit.exists(path)
