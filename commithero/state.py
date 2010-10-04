@@ -85,6 +85,7 @@ class Repository(object):
             for path in commit.get_changed_files():
                 head, tail = os.path.split(path)
                 base, ext = os.path.splitext(tail)
+                ext = ext[1:].lower()
                 new = commit.file_content(path) \
                       if commit.exists(path) else None
                 old = parent.file_content(path) \
