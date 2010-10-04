@@ -56,6 +56,9 @@ class Achievement:
         :param string new: contents in current commit
         :return: see `commithero.state.Repository.award`
 
+        If either of *old* or *new* are None the file in question has been
+        added or removed, respectively.
+
         This method is merely a convenience method to save iteration over all
         of the commit's files (`get_changed_files`);  it *can* be implemented
         solely by the means of `on_commit`.
