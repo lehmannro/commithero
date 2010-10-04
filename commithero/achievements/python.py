@@ -38,3 +38,7 @@ class PartyDecorations(PyAchievement):
 class SpelunkingInUnderpants(PyAchievement, AdditionAchievement):
     "Pollute your environment by using star imports."
     added = "import *"
+
+class UnderpantsGnome(PyAchievement, AdditionAchievement):
+    "Commit debugger invocations into production code."
+    added = "pdb.set_trace()"
