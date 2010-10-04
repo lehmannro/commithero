@@ -34,3 +34,7 @@ class PartyDecorations(PyAchievement):
     "Use three or more decorators on one function."
     def on_change(self, old, new):
         return party_decorations(new) > party_decorations(old)
+
+class SpelunkingInUnderpants(PyAchievement, AdditionAchievement):
+    "Pollute your environment by using star imports."
+    added = "import *"
