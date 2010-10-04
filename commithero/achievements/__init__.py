@@ -27,7 +27,7 @@ class Achievement:
     registry = set()
     class __metaclass__(type):
         def __init__(cls, name, bases, clsdict):
-            assert '__doc__' in clsdict, "docstring becomes description"
+            assert '__doc__' in clsdict, "%s misses description docstring" % name
             cls.registry.add(cls)
             #XXX explicitly mark achievements as abstract?
             cls.registry -= set(bases)
