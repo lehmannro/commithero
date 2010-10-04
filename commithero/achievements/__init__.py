@@ -109,6 +109,7 @@ class AdditionAchievement(Achievement):
 from . import commits
 from . import meta
 from . import punchcard
+from . import text
 from . import python
 from . import gcc
 from . import asm
