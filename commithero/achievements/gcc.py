@@ -28,6 +28,7 @@ class Pragmatic(CAchievement):
         return new.count("\n#pragma ") - old.count("\n#pragma ") > 0
 
 class MrImportant(CAchievement):
+    "Promote a library to a system header."
     def on_change(self, old, new):
         line = "\n#pragma GCC system_header"
         return new.count(line) - old.count(line) > 0
