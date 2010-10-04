@@ -21,3 +21,7 @@ class Win32Hell(CAchievement):
                    ("\n#ifdef _WIN32", "\n#ifdef WIN32",
                     "\n#if defined(_WIN32)", "\n#if defined(WIN32)")
                ) > 0
+
+class Pragmatic(CAchievement):
+    def on_change(self, old, new):
+        return new.count('\n#pragma ') - old.count('\n#pragma ') > 0
