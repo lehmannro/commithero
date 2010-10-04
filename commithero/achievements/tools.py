@@ -17,8 +17,7 @@ class HandwrittenConfigure(Achievement):
     name = "I Can Do Better Than GNU"
     path = ['configure']
     def on_change(self, old, new):
-        return new and ('GNU Autoconf' not in new
-                        or 'autoconf' not in new)
+        return new and 'GNU Autoconf' not in new and 'autoconf' not in new
 
 class MakefileKungFu(Achievement):
     "Your Makefile consists of more than 30 lines!"
