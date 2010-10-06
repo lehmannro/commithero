@@ -49,11 +49,11 @@ class RocketScience(PyAchievement):
 
 def lineavg(text):
     n = text.count("\n")
-    chrs = sum(len(line) for line in new.split("\n"))
+    chrs = sum(len(line) for line in text.split("\n"))
     return chrs/n
 
 class LooooongCode(PyAchievement):
-    "Using lines longer than 80 characters shows off how large your screen really is"
+    "Using lines longer than 80 characters shows off how large your screen really is."
     # ironically the line above is longer than 80
     def on_change(self, old, new):
-        return lineavg(old) < 80 and lineavg(new) > 80
+        return (not old or lineavg(old) < 80) and new and lineavg(new) > 80
