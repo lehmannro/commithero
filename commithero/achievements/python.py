@@ -28,7 +28,7 @@ def party_decorations(text):
         #XXX ignore empty lines between decorator and function
         in itertools.groupby(text.splitlines(),
                              lambda line: line.startswith("@"))
-        if is_deco and len(lines) >= 3) if text else 0
+        if is_deco and len(list(lines)) >= 3) if text else 0
 
 class PartyDecorations(PyAchievement):
     "Use three or more decorators on one function."
