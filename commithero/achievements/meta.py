@@ -39,3 +39,8 @@ class Polyglot(Achievement):
                ) - set(['in', 'txt'])
         #XXX binary files
         return len(exts) >= 3
+
+class MuffinMan(Achievement):
+    "Om nom nom, that's one rich commit."
+    def on_change(self, old, new):
+        return new and len(new) > 10 * 1024 * 1024 # 10MB
