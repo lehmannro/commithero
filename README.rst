@@ -14,8 +14,14 @@ Install Commit Hero through setuptools__::
 .. __: http://packages.python.org/distribute/
 
 It depends on anyvc_ (which is automatically installed by Setuptools) and the
-backend for the repository in question, see `anyvc's Dependencies`__ for
-details.
+backend for the repository in question, including but not limited to:
+
+* `Dulwich <http://pypi.python.org/pypi/dulwich>`_ for Git
+* `mercurial <http://pypi.python.org/pypi/Mercurial>`_ for Mercurial
+* `bzr <http://pypi.python.org/pypi/bzr>`_ for Bazaar
+* `subvertpy <http://pypi.python.org/pypi/subvertpy>`_ for Subversion
+
+Check `anyvc's Dependencies`__ for a comprehensive and up-to-date list.
 
 .. __: http://pypi.python.org/pypi/anyvc/#dependencies
 
