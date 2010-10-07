@@ -43,8 +43,8 @@ class UnderpantsGnome(PyAchievement, AdditionAchievement):
     "Commit debugger invocations into production code."
     added = "pdb.set_trace()"
 
-class RocketScience(PyAchievement):
-    "Using 'while True' obviously means you know *exactly* what you're doing"
+class RocketScience(PyAchievement, AdditionAchievement):
+    "Using 'while True' obviously means you know *exactly* what you're doing."
     added = "while True:"
 
 def lineavg(text):
