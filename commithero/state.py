@@ -83,6 +83,12 @@ class Repository(object):
         if commit.parents:
             parent = commit.parents[0]
             for path in commit.get_changed_files():
+                if commit.exists(path): # probably a merge
+                    in_parent = any(
+                        p.file_content(path) == commit.file_content(path)
+                        for p in commit.parents if p.exists(path))
+                    if in_parent: # already exists in parent, fast-forward merge
+                        continue
                 head, tail = os.path.split(path)
                 base, ext = os.path.splitext(tail)
                 ext = ext[1:].lower()
