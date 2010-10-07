@@ -18,7 +18,8 @@ class ThreeStarProgrammer(CAchievement, AdditionAchievement):
 class Win32Hell(CAchievement):
     "My life for Redmond!"
     def on_change(self, old, new):
-        return sum(new.count(line) - old.count(line) for line in
+        return sum((new.count(line) if new else 0) - (old.count(line) if old else 0)
+                   for line in
                    ("\n#ifdef _WIN32", "\n#ifdef WIN32",
                     "\n#if defined(_WIN32)", "\n#if defined(WIN32)")
                ) > 0
