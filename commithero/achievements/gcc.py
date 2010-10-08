@@ -4,7 +4,7 @@ from . import AdditionAchievement
 class CAchievement(Achievement):
     "Change a C-esque file with a suffix recognized by GCC."
     ext = [
-           'h', 'c', 'i' # C
+           'h', 'c', 'i', # C
            'ii', 'cc', 'cp', 'cxx', 'cpp', 'c++', # C++
            'hh', 'hp', 'hxx', 'hpp', 'h++', 'tcc', # C++ headers
            'm', 'mi', # Objective-C
