@@ -13,7 +13,7 @@ class Pythonista(PyAchievement):
 
 class LambdaCalculus(PyAchievement, AdditionAchievement):
     "Because inline function are, like, totally more readable!"
-    added = "lambda"
+    added = ["lambda"]
 
 class Fedex(Achievement):
     "Introduce a new Python package."
@@ -37,15 +37,15 @@ class PartyDecorations(PyAchievement):
 
 class SpelunkingInUnderpants(PyAchievement, AdditionAchievement):
     "Pollute your environment by using star imports."
-    added = "import *"
+    added = ["import *"]
 
 class UnderpantsGnome(PyAchievement, AdditionAchievement):
     "Commit debugger invocations into production code."
-    added = "pdb.set_trace()"
+    added = ["pdb.set_trace()"]
 
 class RocketScience(PyAchievement, AdditionAchievement):
     "Using 'while True' obviously means you know *exactly* what you're doing."
-    added = "while True:"
+    added = ["while True:"]
 
 def lineavg(text):
     n = text.count("\n")

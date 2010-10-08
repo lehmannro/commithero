@@ -13,21 +13,17 @@ class CAchievement(Achievement):
 
 class ThreeStarProgrammer(CAchievement, AdditionAchievement):
     "Cram at least three levels of indirection into your head."
-    added = "void***"
+    added = ["void***"]
 
 class Win32Hell(CAchievement):
     "My life for Redmond!"
-    def on_change(self, old, new):
-        return sum((new.count(line) if new else 0) - (old.count(line) if old else 0)
-                   for line in
-                   ("\n#ifdef _WIN32", "\n#ifdef WIN32",
-                    "\n#if defined(_WIN32)", "\n#if defined(WIN32)")
-               ) > 0
+    added = ["\n#ifdef _WIN32", "\n#ifdef WIN32",
+             "\n#if defined(_WIN32)", "\n#if defined(WIN32)"]
 
 class Pragmatic(CAchievement, AdditionAchievement):
     "Dear compiler, why are you always so mean to me?"
-    added = "\n#pragma "
+    added = ["\n#pragma "]
 
 class MrImportant(CAchievement, AdditionAchievement):
     "Promote a library to a system header."
-    added = "\n#pragma GCC system_header"
+    added = ["\n#pragma GCC system_header"]

@@ -100,11 +100,13 @@ class AdditionAchievement(Achievement):
     :cvar string added: text which should have been added
 
     """
+    #XXX moved chunks across files
     def on_change(self, old, new):
-        #XXX moved chunks across files
-        new_count = new.count(self.added) if new else 0
-        old_count = old.count(self.added) if old else 0
-        return new_count - old_count > 0
+        for snippet in self.added:
+            new_count = new.count(snippet) if new else 0
+            old_count = old.count(snippet) if old else 0
+            if new_count - old_count > 0:
+                return True
 
 from . import commits
 from . import meta
