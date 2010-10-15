@@ -105,7 +105,7 @@ class AdditionAchievement(Achievement):
         for snippet in self.added:
             new_count = new.count(snippet) if new else 0
             old_count = old.count(snippet) if old else 0
-            if new_count - old_count > 0:
+            if new_count > old_count:
                 return True
 
 from . import commits
