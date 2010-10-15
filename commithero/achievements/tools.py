@@ -38,4 +38,5 @@ class DirtyTempFile(Achievement):
         return new is not None
     def on_commit(self, author, commit):
         return any(path.endswith('~') and commit.exists(path)
+                and not any(parent.exists(path) for parent in commit.parents)
            for path in commit.get_changed_files())
