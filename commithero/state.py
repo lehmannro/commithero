@@ -87,8 +87,8 @@ class Repository(object):
                     in_parent = any(
                         p.file_content(path) == commit.file_content(path)
                         for p in commit.parents if p.exists(path))
-                    if in_parent: # already exists in parent, fast-forward merge
-                        continue
+                    if in_parent:
+                        continue # already exists in parent, fast-forward merge
                 head, tail = os.path.split(path)
                 base, ext = os.path.splitext(tail)
                 ext = ext[1:].lower()
