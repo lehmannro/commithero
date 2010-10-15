@@ -97,7 +97,7 @@ class ProgressiveAchievement(Achievement):
 class AdditionAchievement(Achievement):
     """Achievement which counts occurrences of text snippets in changed files.
 
-    :cvar string added: text which should have been added
+    :cvar string added: text which should have been added, or list of them
 
     """
     #XXX moved chunks across files
