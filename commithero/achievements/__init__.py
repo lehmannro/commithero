@@ -75,7 +75,6 @@ class Achievement:
 
 class ProgressiveAchievement(Achievement):
     """Achievements with multiple tiers."""
-    goals = {}
     def __init__(self):
         self.counter = defaultdict(int)
 
