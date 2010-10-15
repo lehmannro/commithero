@@ -12,7 +12,7 @@ class Pythonista(PyAchievement):
         return True
 
 class LambdaCalculus(PyAchievement, AdditionAchievement):
-    "Because inline function are, like, totally more readable!"
+    "Because inline functions are, like, totally more readable!"
     added = ["lambda"]
 
 class Fedex(Achievement):
