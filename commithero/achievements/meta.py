@@ -123,6 +123,12 @@ class Mover(Achievement):
         if all(val == 0 for val in added.itervalues()):
             return sum(removed.itervalues())
 
+class SecretAgent(Achievement):
+    "Modify a hidden file."
+    def on_commit(self, author, commit):
+        return any(os.path.split(path)[1].startswith('.')
+                   for path in commit.get_changed_files())
+
 class DirtyWords(Achievement):
     "Mention the dirty words in your commit message."
     goals = {
