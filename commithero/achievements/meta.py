@@ -61,7 +61,7 @@ class Polyglot(Achievement):
     def on_commit(self, author, commit):
         exts = set(os.path.splitext(path)[1][1:].lower()
                    for path in commit.get_changed_files()
-               ) - set(['in', 'txt'])
+               ) - set(['in', 'txt', ''])
         #XXX binary files
         return len(exts) >= 3
 
