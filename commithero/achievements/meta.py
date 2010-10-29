@@ -51,7 +51,13 @@ class MultilineCommitMessages(Achievement):
         return commit.message.count('\n')
 
 class Polyglot(Achievement):
-    "Master at least three languages."
+    "Master multiple languages in one commit."
+    goals = {
+        2: ("Pidgin", "Master a pair of languages."),
+        3: ("Polyglot", "Master three languages."),
+        6: ("Impressive Resume", "Master half a dozen of languages."),
+        10: ("Peter Norvig", "Master ten languages."),
+    }
     def on_commit(self, author, commit):
         exts = set(os.path.splitext(path)[1][1:].lower()
                    for path in commit.get_changed_files()
