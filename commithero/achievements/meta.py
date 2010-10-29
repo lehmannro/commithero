@@ -88,3 +88,37 @@ class MultipleIdentities(Achievement):
         idents = self.idents.setdefault(author, set())
         idents.add(commit.author.lower())
         return len(idents)
+
+try:
+    from collections import Counter
+except ImportError:
+    class Counter(dict):
+        def update(self, iterable):
+            self_get = self.get
+            for elem in iterable:
+                self[elem] = self_get(elem, 0) + 1
+        def subtract(self, iterable):
+            self_get = self.get
+            for elem in iterable:
+                self[elem] = self_get(elem, 0) - 1
+from anyvc.diff import diff_for_file
+
+class Mover(Achievement):
+    "Contribute no original work."
+    goals = {
+        1: ("Moving Target", "Move a line through your code base."),
+        25: ("Trucker", "Transport twenty-five or more lines around."),
+        50: ("Relocation Service", "Ship at least fifty lines around."),
+    }
+    def on_commit(self, author, commit):
+        added = Counter()
+        removed = Counter()
+        # get_parent_diff would be fine if headers were not harder to parse
+        for path in commit.get_changed_files():
+            diff = list(diff_for_file(commit, path))[2:] # strip off header
+            added.update(line[1:] for line in diff if line.startswith('+'))
+            removed.update(line[1:] for line in diff if line.startswith('-'))
+        added.subtract(removed)
+        # all additions are remedied by removals
+        if all(val == 0 for val in added.itervalues()):
+            return sum(removed.itervalues())
