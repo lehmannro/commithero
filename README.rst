@@ -84,6 +84,9 @@ its name is generated from its class name (eg. a class ``WellDone`` becomes
   with restrictions imposed by Python.
 * If you need to generate several achievements from a single class you can
   return a tuple of *title* and *description* on every single invocation.
+* When returning an integer from any of the ``on_*`` methods the corresponding
+  author will be awarded the maximum goal as set in the equally-named class
+  attribute ``goals``.
 * See `ProgressiveAchievement` for achievements which have multiple levels.
 
 Achievements are currently limited to one repository and can **not** be shared
