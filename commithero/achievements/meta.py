@@ -74,3 +74,17 @@ class LargeFile(Achievement):
     }
     def on_change(self, old, new):
         return new and len(new)
+
+class MultipleIdentities(Achievement):
+    "Commit from more than one identity."
+    goals = {
+        2: ("Schizophrenia", "Contribute from two or more identities."),
+        6: ("Jason Bourne", "Cover your tracks with half a dozen of identities."),
+        300: ("Sparta", "These, uh, 300 men are my personal bodyguard."),
+    }
+    def __init__(self):
+        self.idents = {}
+    def on_commit(self, author, commit):
+        idents = self.idents.setdefault(author, set())
+        idents.add(commit.author.lower())
+        return len(idents)
