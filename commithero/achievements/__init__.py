@@ -94,6 +94,24 @@ class ProgressiveAchievement(Achievement):
         """
         raise NotImplementedError
 
+class MetricAchievement(Achievement):
+    """Achievements awarded when a particular scoring criteria has increased.
+
+    """
+
+    def on_change(self, old, new):
+        old_score = self.score(old) if old else 0
+        new_score = self.score(new) if new else 0
+        return new_score > old_score
+
+    def score(self, content):
+        """Assess a score for a particular chunk of file content.
+
+        :param string content: chunk
+
+        """
+        raise NotImplementedError
+
 class AdditionAchievement(Achievement):
     """Achievement which counts occurrences of text snippets in changed files.
 
