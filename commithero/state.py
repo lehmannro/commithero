@@ -123,6 +123,12 @@ class Repository(object):
             # support lazy achievements
             if result is True:
                 result = ach.name, ach.__doc__
+            elif isinstance(result, (int, long, float)):
+                goals = [goal for goal in ach.goals if goal <= result]
+                if not goals:
+                    return
+                #XXX award achievements with lower requirements too?
+                result = ach.goals[max(goals)]
             # do not award achievement again
             if result in self.achievements[author]:
                 return
