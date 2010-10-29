@@ -122,3 +122,16 @@ class Mover(Achievement):
         # all additions are remedied by removals
         if all(val == 0 for val in added.itervalues()):
             return sum(removed.itervalues())
+
+class DirtyWords(Achievement):
+    "Mention the dirty words in your commit message."
+    goals = {
+        1: ("Language!", "Mention a dirty word in your commit message."),
+        2: ("PG-Rated", "Mention two dirty words in your commit message."),
+        3: ("Choleric", "Mention three dirty words in your commit message."),
+        7: ("George Carlin", "Mention all dirty words in your commit message"),
+    }
+    words = 'ass balls cocksucker cunt fuck motherfucker piss shit tits'.split()
+    def on_commit(self, author, commit):
+        # May trigger involuntarily, eg. with "assertion."
+        return sum(1 for word in self.words if word in commit.message.lower())
