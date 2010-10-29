@@ -32,13 +32,7 @@ class Ooopsie(Achievement):
             return
         parent = commit.parents[0].parents[0]
         for f in commit.get_changed_files():
-            try:
-                old = parent.file_content(f)
-            except IOError:
-                old = None
-            try:
-                new = commit.file_content(f)
-            except IOError:
-                new = None
+            old = parent.file_content(f) if parent.exists(f) else None
+            new = commit.file_content(f) if commit.exists(f) else None
             if old == new:
                 return True
