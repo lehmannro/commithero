@@ -80,10 +80,9 @@ class ProgressiveAchievement(Achievement):
 
     def on_commit(self, author, commit):
         if self.check(commit):
+            # strictly stepwise
             self.counter[author] += 1
-            count = self.counter[author]
-            if count in self.goals:
-                return self.goals[count]
+            return self.counter[author]
 
     def check(self, commit):
         """Detect if a commit counts as progress towards a goal.
