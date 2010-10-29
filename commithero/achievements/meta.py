@@ -1,6 +1,7 @@
 from . import Achievement
 from . import ProgressiveAchievement
 import os.path
+import re
 
 class FoundingFather(Achievement):
     "Start the repository."
@@ -26,6 +27,17 @@ class BugFixes(ProgressiveAchievement):
     def check(self, commit):
         msg = commit.message.lower()
         return "closes #" in msg or "closes gh-" in msg
+
+class BugFixesAgain(Achievement):
+    "Close an issue which has already been closed."
+    def __init__(self):
+        self.closed = set()
+    def on_commit(self, author, commit):
+        closes = set(re.findall(r'closes (?:gh-|#)(\d+)',
+                                commit.message.lower()))
+        again = not self.closed.isdisjoint(closes)
+        self.closed.update(closed)
+        return again
 
 class BlahBlahBlah(Achievement):
     "Tell the newest gossip in commit messages."
