@@ -39,6 +39,9 @@ it on your Mercurial repository ``~/myrepo``, use::
 Synopsis
 ========
 
+Achievements are unlocked when committing to a repository and subsequently
+running Commit Hero over it.
+
 Results from previous runs are cached for performance reasons.  Technically, a
 `commithero.state.Repository` is pickled to a file called ``.commithero`` (see
 ``--cache`` to modify its name) and loaded in consecutive passes.  Use
