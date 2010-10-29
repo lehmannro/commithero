@@ -65,7 +65,12 @@ class Polyglot(Achievement):
         #XXX binary files
         return len(exts)
 
-class MuffinMan(Achievement):
-    "Om nom nom, that's one rich commit."
+class LargeFile(Achievement):
+    "Commit a very large file."
+    goals = {
+        1*1024*1024: ("Obesity", "Grow a file over one megabyte."),
+        10*1024*1024: ("Muffin Man", "Om nom nom, that's one rich commit."),
+        50*1024*1024: ("Kirby", "Inhale a file at least fifty MB in size."),
+    }
     def on_change(self, old, new):
-        return new and len(new) > 10 * 1024 * 1024 # 10MB
+        return new and len(new)
