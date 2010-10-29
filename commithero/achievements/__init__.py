@@ -118,11 +118,16 @@ class AdditionAchievement(Achievement):
     :cvar string added: text which should have been added, or list of them
 
     """
+    # Could possibly be migrated to a MetricAchievement with its score computed
+    # as sum(content.count(snippet) for snippet in self.added) but this would
+    # not award the achievement if *one* of the snippets has been replaced by
+    # another one (which is feasible as it demonstrates work in that niche)
     #XXX moved chunks across files
     def on_change(self, old, new):
         for snippet in self.added:
             new_count = new.count(snippet) if new else 0
             old_count = old.count(snippet) if old else 0
+            # cannot just return comparison result as we are in a loop
             if new_count > old_count:
                 return True
 
