@@ -86,6 +86,11 @@ its name is generated from its class name (eg. a class ``WellDone`` becomes
   return a tuple of *title* and *description* on every single invocation.
 * See `ProgressiveAchievement` for achievements which have multiple levels.
 
+Achievements are currently limited to one repository and can **not** be shared
+among several repositories.  While there is technically no problem with walking
+multiple repository histories from one shared state, some achievements assume
+they are operating on a single repository for semantic purposes.
+
 
 See Also
 ========
