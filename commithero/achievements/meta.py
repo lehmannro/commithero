@@ -63,7 +63,7 @@ class Polyglot(Achievement):
                    for path in commit.get_changed_files()
                ) - set(['in', 'txt', ''])
         #XXX binary files
-        return len(exts) >= 3
+        return len(exts)
 
 class MuffinMan(Achievement):
     "Om nom nom, that's one rich commit."
