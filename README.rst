@@ -100,5 +100,12 @@ See Also
   ``--help`` to ``git`` which Commit Hero can never do.  Commit Hero is
   targeted to be run post-factum on already-written version histories and
   supports a wide range of version control systems.
+* `Python Achievements`_, tentatively tagged *#pychievements*, are a collection
+  of achievements invented by the Python community.
+* `IT achievements/trophies` are a collection of achievements invented by the
+  Something Awful forums.
 
 .. _git-achievements: http://github.com/icefox/git-achievements
+.. _Python Achievements: https://docs.google.com/View?id=dfsf8s3r_45388t5rdd
+.. _IT achievements/trophies:
+   http://forums.somethingawful.com/showthread.php?threadid=3355600
