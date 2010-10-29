@@ -25,8 +25,9 @@ class Merges(ProgressiveAchievement):
         return len(commit.parents) > 1 \
            and any(p.author != commit.author for p in commit.parents)
 
-class Ooopsie(Achievement):
+class Rollback(Achievement):
     "Immediately withdraw one of your changes again."
+    name = "Ooopsie"
     def on_commit(self, author, commit):
         if len(commit.parents) != 1 or len(commit.parents[0].parents) != 1:
             return
