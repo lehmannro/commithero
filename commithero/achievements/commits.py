@@ -37,3 +37,21 @@ class Rollback(Achievement):
             new = commit.file_content(f) if commit.exists(f) else None
             if old == new:
                 return True
+
+class CommitStreak(Achievement):
+    "Commit without remote interaction or branching."
+    goals = {
+        10: ("Lone Star", "Commit ten times in a row."),
+        30: ("Flawless Hat-Trick", "Commit thirty times in a row."),
+        50: ("Nap Hand", "Commit fifty times in a row."),
+        100: ("Hello?! Is Anybody Out There?",
+              "Commit a hundred times in a row."),
+    }
+    def on_commit(self, author, commit):
+        current = commit
+        for streak in xrange(100): # do not loop longer than necessary
+            if len(current.parents) != 1 or current.author != commit.author:
+                break
+            current, = current.parents
+        # starts from 0 but the current commit is always part of a streak
+        return streak + 1
