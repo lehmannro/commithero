@@ -36,7 +36,7 @@ class BugFixesAgain(Achievement):
         closes = set(re.findall(r'closes (?:gh-|#)(\d+)',
                                 commit.message.lower()))
         again = not self.closed.isdisjoint(closes)
-        self.closed.update(closed)
+        self.closed.update(closes)
         return again
 
 class MultilineCommitMessages(Achievement):
