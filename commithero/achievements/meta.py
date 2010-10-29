@@ -16,7 +16,7 @@ class OctoMerge(Achievement):
                    if c.author == commit.author)
 
 class BugFixes(ProgressiveAchievement):
-    "Close X issues."
+    "Close issues."
     goals = {
         1: ("Handyman", "Close an issue."),
         5: ("Craftsman", "Close five issues."),

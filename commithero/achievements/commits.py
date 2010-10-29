@@ -2,7 +2,7 @@ from . import Achievement
 from . import ProgressiveAchievement
 
 class Commits(ProgressiveAchievement):
-    "Commit at least X times."
+    "Commit to the repository."
     goals = {
         1: ("Script Kiddie", "Commit at least once."),
         5: ("Volunteer", "Commit at least five times."),
@@ -17,7 +17,7 @@ class Commits(ProgressiveAchievement):
         return len(commit.parents) <= 1
 
 class Merges(ProgressiveAchievement):
-    "Merge at least X times."
+    "Merge from other sources."
     goals = {
         1: ("Team Player", "Merge from another source."),
     }
