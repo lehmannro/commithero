@@ -10,4 +10,5 @@ class WhitespaceChanges(Achievement):
     "Removing whitespace is a valuable compression."
     name = "Anal"
     def on_change(self, old, new):
-        return old and new and remove_whitespace(old) == remove_whitespace(new)
+        return old and new and len(old) > len(new) and \
+               remove_whitespace(old) == remove_whitespace(new)
