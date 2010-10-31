@@ -50,3 +50,8 @@ class LooooongCode(PyAchievement, MetricAchievement):
     # ironically the line above is longer than 80
     def score(self, content):
         return sum(1 for line in content.splitlines() if len(line) > 80)
+
+class Regex(PyAchievement, AdditionAchievement):
+    "Now they have two problems."
+    name = "I Know, I'll Use Regular Expressions"
+    added = ["import re\n", "from re import "]
