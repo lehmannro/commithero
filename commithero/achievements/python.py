@@ -1,5 +1,6 @@
 from . import Achievement
 from . import AdditionAchievement
+from . import MetricAchievement
 import itertools
 
 class PyAchievement(Achievement):
@@ -23,17 +24,14 @@ class Fedex(Achievement):
         # file has been added
         return old is None
 
-def party_decorations(text):
-    return sum(1 for is_deco, lines
-        #XXX ignore empty lines between decorator and function
-        in itertools.groupby(text.splitlines(),
-                             lambda line: line.startswith("@"))
-        if is_deco and len(list(lines)) >= 3) if text else 0
-
-class PartyDecorations(PyAchievement):
+class PartyDecorations(PyAchievement, MetricAchievement):
     "Use three or more decorators on one function."
-    def on_change(self, old, new):
-        return party_decorations(new) > party_decorations(old)
+    def score(self, content):
+        return sum(1 for is_deco, lines
+                   #XXX ignore empty lines between decorator and function
+                   in itertools.groupby(content.splitlines(),
+                      lambda line: line.startswith("@"))
+                   if is_deco and len(list(lines)) >= 3)
 
 class SpelunkingInUnderpants(PyAchievement, AdditionAchievement):
     "Pollute your environment by using star imports."
