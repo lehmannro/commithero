@@ -131,6 +131,7 @@ class AdditionAchievement(Achievement):
                 return True
 
 from . import commits
+from . import message
 from . import meta
 from . import punchcard
 from . import text
