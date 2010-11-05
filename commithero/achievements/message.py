@@ -1,5 +1,6 @@
 from . import Achievement
 from . import ProgressiveAchievement
+import re
 
 class MultilineCommitMessages(Achievement):
     "Span multiple lines with your commit message."

@@ -1,7 +1,6 @@
 from . import Achievement
 from . import ProgressiveAchievement
 import os.path
-import re
 
 class FoundingFather(Achievement):
     "Start the repository."
