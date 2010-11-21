@@ -83,3 +83,7 @@ def main(args=None):
                 print "[%s] %s unlocked: %s - %s" % (date, user, title, desc)
     # write back
     cachefile.write(pickle.dumps(repo), 'wb')
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main())
