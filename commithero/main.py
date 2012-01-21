@@ -40,18 +40,28 @@ def main(args=None):
     assert not (options.all and options.table), "-t and -a are exclusive"
     wd = path(args[0] if args else ".")
 
+    repo = Repository()
     # load data from previous runs, if any
     cachefile = wd / options.cache
-    repo = Repository()
-    if cachefile.check() and not options.nocache:
-        repo = pickle.load(cachefile.open('rb'))
+    if not options.nocache:
+        try:
+            cache = cachefile.open('rb')
+        except IOError:
+            pass
+        else:
+            with cache:
+                repo = pickle.load(cache)
     previous = len(repo.history)
 
     # load aliases from pseudonym file
     aliases = {}
     aliasfile = wd / options.pseudonyms
-    if aliasfile.check():
-        with aliasfile.open() as f:
+    try:
+        f = aliasfile.open()
+    except IOError:
+        pass
+    else:
+        with f:
             for line in f:
                 try:
                     alias, actual = line.split('=' in line and '=' or None, 1)
