@@ -71,9 +71,12 @@ def main(args=None):
 
     with captured_stdout(): # anyvc is a little verbose in places
         vcs = workdir.open(wd).repository
-        assert vcs, "%s is not a repository" % wd
-        with repo(aliases):
-            repo.walk(vcs)
+        if vcs:
+            with repo(aliases):
+                repo.walk(vcs)
+        else:
+            print >>sys.stderr, "%s is not a repository" % wd
+            return 1
 
     if options.table:
         for user, achievements in repo.achievements.iteritems():
