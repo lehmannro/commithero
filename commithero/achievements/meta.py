@@ -24,9 +24,9 @@ class Polyglot(Achievement):
         10: ("Peter Norvig", "Master ten languages."),
     }
     def on_commit(self, author, commit):
-        exts = set(os.path.splitext(path)[1][1:].lower()
+        exts = set(os.path.splitext(path)[1][1:].lower().rstrip('~')
                    for path in commit.get_changed_files()
-               ) - set(['in', 'txt', ''])
+                   ) - set(['in', 'txt', 'lock', 'orig', ''])
         #XXX binary files
         return len(exts)
 
