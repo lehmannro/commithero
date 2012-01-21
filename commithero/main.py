@@ -1,5 +1,5 @@
 from .state import Repository
-from anyvc import repository
+from anyvc import workdir
 from py.path import local as path
 from test.test_support import captured_stdout
 import pickle
@@ -60,7 +60,7 @@ def main(args=None):
                     assert not line.strip(), "malformed alias line: %s" % line
 
     with captured_stdout(): # anyvc is a little verbose in places
-        vcs = repository.open(wd)
+        vcs = workdir.open(wd).repository
         assert vcs, "%s is not a repository" % wd
         with repo(aliases):
             repo.walk(vcs)
