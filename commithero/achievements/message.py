@@ -5,13 +5,12 @@ import re
 class MultilineCommitMessages(Achievement):
     "Span multiple lines with your commit message."
     goals = {
-        2: ("Long-Winded", "Conciseness isn't your strength."),
-        4: ("Blah Blah Blah", "Tell the newest gossip in commit messages."),
+        3: ("Long-Winded", "Conciseness isn't your strength."),
+        5: ("Blah Blah Blah", "Tell the newest gossip in commit messages."),
         10: ("Essayist", "Document your project in commit messages."),
     }
     def on_commit(self, author, commit):
-        #XXX score should be number of lines
-        return commit.message.count('\n')
+        return sum(1 for line in commit.message.splitlines() if line)
 
 class BugFixes(ProgressiveAchievement):
     "Close issues."
