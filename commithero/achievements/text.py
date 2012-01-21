@@ -1,10 +1,10 @@
 from . import Achievement
 import string
 
-chars = ''.join(chr(i) for i in xrange(256))
+CHARS = ''.join(chr(i) for i in xrange(256))
 
 def remove_whitespace(s):
-    return s.translate(chars, string.whitespace)
+    return s.translate(CHARS, string.whitespace)
 
 class WhitespaceChanges(Achievement):
     "Removing whitespace is a valuable compression."
