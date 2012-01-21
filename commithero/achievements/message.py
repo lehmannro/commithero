@@ -43,7 +43,11 @@ class DirtyWords(Achievement):
         3: ("Choleric", "Mention three dirty words in your commit message."),
         7: ("George Carlin", "Mention all dirty words in your commit message"),
     }
-    words = 'ass balls cocksucker cunt fuck motherfucker piss shit tits'.split()
+    MATCH = re.compile(
+        r'\b(ass|balls|cocksucker|cunt|fuck|motherfucker|piss|shit|tits)\b')
     def on_commit(self, author, commit):
-        # May trigger involuntarily, eg. with "assertion."
-        return sum(1 for word in self.words if word in commit.message.lower())
+        # re.IGNORECASE would not help with counting distinct words, so it
+        # needs to be str.lower()
+        obscenities = set(match.group() for match in
+                          self.MATCH.finditer(commit.message.lower()))
+        return len(obscenities)
