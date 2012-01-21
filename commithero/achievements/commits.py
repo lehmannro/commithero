@@ -19,7 +19,12 @@ class Commits(ProgressiveAchievement):
 class Merges(ProgressiveAchievement):
     "Merge from other sources."
     goals = {
-        1: ("Team Player", "Merge from another source."),
+        1: ("Fellow", "Merge from another source."),
+        15: ("Team Player", "Merge fifteen times."),
+        50: ("Collaborator", "Merge fifty times."),
+        120: ("Comrade", "Merge one hundred twenty times."),
+        300: ("Socialist", "Merge three hundred times."),
+        500: ("Communist", "Merge five hundred times."),
     }
     def check(self, commit):
         return len(commit.parents) > 1 \
