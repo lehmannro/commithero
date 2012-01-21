@@ -65,7 +65,7 @@ class Achievement:
         (`~anyvc.common.repository.Revision.get_changed_files`);  it *can* be
         implemented solely by the means of `on_commit`.
 
-        There are two ways to limit its invokation based on the handled file:
+        There are two ways to limit its invocation based on the handled file:
 
             * Set ``path`` to a list of file names.
             * Set ``ext`` to a list of file suffixes.
