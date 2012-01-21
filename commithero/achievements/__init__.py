@@ -15,13 +15,13 @@ class Achievement:
     :cvar __doc__: description
 
     Once an achievement has been awarded its representation is permanently
-    logged to the tracked repository.  See `commithero.state.Repository.award`
+    logged to the tracked repository.  See `~commithero.state.Repository.award`
     for details.
 
     :cvar registry: all achievements
 
-    All leaf subclasses of `Achievement` are automagically added to `registry`
-    for easy collection.
+    All leaf subclasses of `Achievement` are automagically added to
+    `registry`:attr: for easy collection.
 
     """
     registry = set()
@@ -45,7 +45,7 @@ class Achievement:
 
         :param string author: clean name
         :param commit: `anyvc.common.repository.Revision`
-        :return: see `commithero.state.Repository.award`
+        :return: see `commithero.Repository.award`
 
         """
         pass
@@ -61,8 +61,9 @@ class Achievement:
         added or removed, respectively.
 
         This method is merely a convenience method to save iteration over all
-        of the commit's files (`get_changed_files`);  it *can* be implemented
-        solely by the means of `on_commit`.
+        of the commit's files
+        (`~anyvc.common.repository.Revision.get_changed_files`);  it *can* be
+        implemented solely by the means of `on_commit`.
 
         There are two ways to limit its invokation based on the handled file:
 

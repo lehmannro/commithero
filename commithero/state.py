@@ -8,9 +8,9 @@ import os.path
 class Repository(object):
     """Pickle-able metadata collection of a repository.
 
-    Allows to lazily update a set of commits, ie. when having run `commithero`
-    from a previous checkout and now updating the achievements with only recent
-    commits.
+    Allows to lazily update a set of commits, ie. when having run
+    `commithero`:program: from a previous checkout and now updating the
+    achievements with only recent commits.
 
     All instance variables are primitive types ready for pickling.
 
@@ -18,7 +18,7 @@ class Repository(object):
                    revision objects to allow sane pickling)
 
     :ivar achievements: keeps track of achievements by author
-    :ivar history: same as :ivar:`achievements` but denormalized to
+    :ivar history: same as `achievements` but denormalized to
                    chronological order
 
     :ivar listeners: instances of `Achievement` waiting for commit events
