@@ -82,26 +82,35 @@ class Repository(object):
 
         if commit.parents:
             parent = commit.parents[0]
-            for path in commit.get_changed_files():
-                if commit.exists(path): # probably a merge
-                    in_parent = any(
-                        p.file_content(path) == commit.file_content(path)
-                        for p in commit.parents if p.exists(path))
-                    if in_parent:
-                        continue # already exists in parent, fast-forward merge
-                head, tail = os.path.split(path)
-                base, ext = os.path.splitext(tail)
-                ext = ext[1:].lower()
-                new = commit.file_content(path) \
-                      if commit.exists(path) else None
-                old = parent.file_content(path) \
-                      if parent.exists(path) else None
-                for ach in self.listeners:
-                    if ach.ext and ext.lower() not in ach.ext:
-                        continue
-                    if ach.path and tail.lower() not in ach.path:
-                        continue
-                    self.award(author, ach, ach.on_change(old, new), commit)
+        else:
+            class EmptyRevision(object):
+                def exists(self, path):
+                    return False
+            # calls on_change(None, contents) for all files in initial commit
+            parent = EmptyRevision()
+
+        # notify all probably interested listeners via `on_change`
+        for path in commit.get_changed_files():
+            if commit.exists(path) and len(commit.parents) > 1:
+                # could be a merge
+                in_parent = any(
+                    p.file_content(path) == commit.file_content(path)
+                    for p in commit.parents if p.exists(path))
+                if in_parent:
+                    continue # already exists in parent, fast-forward merge
+            head, tail = os.path.split(path)
+            base, ext = os.path.splitext(tail)
+            ext = ext[1:].lower()
+            new = commit.file_content(path) \
+                    if commit.exists(path) else None
+            old = parent.file_content(path) \
+                    if parent.exists(path) else None
+            for ach in self.listeners:
+                if ach.ext and ext.lower() not in ach.ext:
+                    continue
+                if ach.path and tail.lower() not in ach.path:
+                    continue
+                self.award(author, ach, ach.on_change(old, new), commit)
 
     def award(self, author, ach, result, commit):
         """
