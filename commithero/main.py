@@ -46,7 +46,7 @@ def main(args=None):
     if not options.nocache:
         try:
             cache = cachefile.open('rb')
-        except IOError:
+        except EnvironmentError:
             pass
         else:
             with cache:
@@ -58,7 +58,7 @@ def main(args=None):
     aliasfile = wd / options.pseudonyms
     try:
         f = aliasfile.open()
-    except IOError:
+    except EnvironmentError:
         pass
     else:
         with f:
