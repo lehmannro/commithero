@@ -76,12 +76,13 @@ class Repository(object):
         """
         author = self.clean_author(commit.author)
 
-        # notify all listeners
+        # notify all listeners via `on_commit`
         for ach in self.listeners:
             self.award(author, ach, ach.on_commit(author, commit), commit)
 
+        # determine parents
         if commit.parents:
-            parent = commit.parents[0]
+            parent = commit.parents[0] #XXX consider other parents
         else:
             class EmptyRevision(object):
                 def exists(self, path):
