@@ -7,6 +7,21 @@ class Insomniac(Achievement):
     def on_commit(self, author, commit):
         return commit.time.hour in (2, 3, 4)
 
+class EarlyBird(Achievement):
+    "Early to rise, early to commit."
+    def on_commit(self, author, commit):
+        return commit.time.hour in (5, 6)
+
+class SantaClaus(Achievement):
+    "Bring some commits for Christmas."
+    def on_commit(self, author, commit):
+        return commit.time.month == 12 and commit.time.day in (24, 25)
+
+class Laborer(Achievement):
+    "Craft some commits during the working hours."
+    def on_commit(self, author, commit):
+        return commit.time.hour in (9, 10, 11, 12, 13, 14, 15, 16)  # 9 to 5
+
 class GrandfatherParadox(Achievement):
     "Technically, you are your own parent now."
     def on_commit(self, author, commit):
