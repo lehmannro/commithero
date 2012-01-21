@@ -2,14 +2,15 @@ O ?=
 R ?= .
 VIRTUALENV = var
 
-.PHONY: install run test clean
+.PHONY: install install-git install-hg install-bzr install-svn \
+	    run test nocache clean
 VIRTUAL = . "$(VIRTUALENV)/bin/activate";
 
 run: install
 	$(VIRTUAL) commithero $(O) $(R)
 
 help:
-	@echo " install      Install to virtualenv \$$VIRTUALENV (default: ./var)"
+	@echo " install      Install to virtualenv \$$VIRTUALENV (default: ./var)."
 	@echo " run          Run on repository \$$R with options \$$O."
 	@echo " install-git  Install Git backend."
 	@echo " install-hg   Install Mercurial backend."
@@ -35,6 +36,8 @@ install-bzr: install
 install-svn: install
 	$(VIRTUAL) pip install subvertpy
 
-clean:
-	rm -rf "$(VIRTUALENV)" build/ dist/ CommitHero.egg-info/
+nocache:
 	rm -f .commithero
+
+clean: nocache
+	rm -rf "$(VIRTUALENV)" build/ dist/ CommitHero.egg-info/
