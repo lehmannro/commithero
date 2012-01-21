@@ -44,6 +44,8 @@ class FifteenMinutesOfFame(Achievement):
                 queue.extend(current.parents)
                 if current.author == commit.author:
                     recent += 1
+                    if recent >= 12:
+                        break # optimization
         return recent >= 12
 
 class ShomerShabbos(Achievement):
