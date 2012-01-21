@@ -22,8 +22,9 @@ class Repository(object):
                    chronological order
 
     :ivar listeners: instances of `Achievement` waiting for commit events
-    :ivar synonyms: mapping of aliases to authors, set by calls to this
-                    instance when entering context
+
+    :ivar synonyms: mapping of aliases to authors, temporarily set by calls to
+                    `walk`
 
     """
     def __init__(self):
@@ -34,7 +35,6 @@ class Repository(object):
         self.history = deque()
         # fetch listening achievements
         self.listeners = [ach() for ach in Achievement.registry]
-        self.synonyms = {}
 
     def clean_author(self, origin):
         # aliasfile may override determined authors
@@ -54,16 +54,6 @@ class Repository(object):
                 return self.synonyms[author]
             return author or mail
         return origin # if all else fails
-
-    def __call__(self, aliases):
-        """Pass in aliases and make ready to enter context."""
-        assert not self.synonyms, "can only enter context once"
-        self.synonyms = aliases
-        return self
-    def __enter__(self):
-        pass
-    def __exit__(self, typ, val, tb):
-        self.synonyms = {}
 
     def commit(self, commit):
         """
@@ -146,12 +136,15 @@ class Repository(object):
             self.achievements[author][result] = (commit.time, commit.id)
             self.history.append((commit.time, author, result, commit.id))
 
-    def walk(self, repo):
+    def walk(self, repo, aliases):
         """Examine a repository for new commits.
 
         :param repo: `anyvc.common.repository.Repository`
 
         """
+        # store aliases temporarily
+        self.synonyms = aliases
+        # walk from tip
         head = repo.get_default_head()
         if head.id in self.visited:
             return # no commits since last run
@@ -169,3 +162,5 @@ class Repository(object):
         # now commit all new revisions in order
         for revision in sorted(revisions, key=operator.attrgetter('time')):
             self.commit(revision)
+        # purge ephemeral data
+        del self.synonyms

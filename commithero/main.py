@@ -53,8 +53,8 @@ def main(args=None):
                 repo = pickle.load(cache)
     previous = len(repo.history)
 
-    # load aliases from pseudonym file
     aliases = {}
+    # load aliases from pseudonym file
     aliasfile = wd / options.pseudonyms
     try:
         f = aliasfile.open()
@@ -72,8 +72,7 @@ def main(args=None):
     with captured_stdout(): # anyvc is a little verbose in places
         vcs = workdir.open(wd).repository
         if vcs:
-            with repo(aliases):
-                repo.walk(vcs)
+            repo.walk(vcs, aliases)
         else:
             print >>sys.stderr, "%s is not a repository" % wd
             return 1
